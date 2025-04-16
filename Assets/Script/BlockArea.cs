@@ -7,8 +7,8 @@ public class BlockArea : MonoBehaviour
     public BlockManager blockManager;
     public Material blockAreaMaterial;
     private Color defaultBlockAreaCol = new Color(0.63f, 0.62f, 0.95f, 0.50f);
-    private float flashTime = 0f;
-    private float flashSpeed = 1f;
+    // private float flashTime = 0f;
+    // private float flashSpeed = 1f;
     public bool isBallInArea = false;
     private bool isHidden = false;
     private bool isGenerat;
