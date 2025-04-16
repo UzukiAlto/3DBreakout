@@ -142,6 +142,12 @@ public class GameSelectManager : MonoBehaviour
                 Debug.Log("select GAME SEART");
                 break;
 
+            case "CONFIG":
+                canOperate = false;
+                Debug.Log("select CONFIG");
+                break;
+
+
         }
 
         if (obj.name == "Normal" || obj.name == "Hard" || obj.name == "Score Attack")
