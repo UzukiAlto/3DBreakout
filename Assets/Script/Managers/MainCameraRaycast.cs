@@ -56,7 +56,7 @@ public class MainCameraRaycast : MonoBehaviour
             }
             if(hit.collider.gameObject.CompareTag("SelectText"))
             {
-                GameObject textObj = hit.collider.transform.Find("Canvas/Text (TMP)").gameObject;
+                GameObject textObj = hit.collider.transform.Find("Canvas/AdjustTextRotate/Text (TMP)").gameObject;
                 if(textObj != currentText)
                 {
                     seManager.PlaySE(SEManager.SoundName.select);

@@ -13,6 +13,8 @@ public class GameSelectManager : MonoBehaviour
     public GameObject homeScene;
     public GameObject gameMode;
     public GameObject difficulty;
+    public GameObject configText;
+    public GameObject configObjects;
     public GM gm;
     private bool selectStartGame = false;
     private bool FlagGameStartRote = false;
@@ -144,6 +146,8 @@ public class GameSelectManager : MonoBehaviour
 
             case "CONFIG":
                 canOperate = false;
+                configText.SetActive(false);
+                configObjects.SetActive(true);
                 Debug.Log("select CONFIG");
                 break;
 
