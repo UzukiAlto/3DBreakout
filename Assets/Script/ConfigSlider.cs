@@ -17,10 +17,10 @@ public class ConfigSlider : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        selectedRawImage = GameObject.Find("Handle Slide Area/RawImage").GetComponent<RawImage>();
-        selectedVideoPlayer = GameObject.Find("Handle Slide Area/RawImage").GetComponent<VideoPlayer>();
-        unselectedImage = GameObject.Find("Handle Slide Area/UnselectedImage").GetComponent<Image>();
-        myText = GameObject.Find("Text Object/Text (TMP) (1)").GetComponent<TMP_Text>();
+        // selectedRawImage = GameObject.Find("Handle Slide Area/RawImage").GetComponent<RawImage>();
+        // selectedVideoPlayer = GameObject.Find("Handle Slide Area/RawImage").GetComponent<VideoPlayer>();
+        // unselectedImage = GameObject.Find("Handle Slide Area/UnselectedImage").GetComponent<Image>();
+        // myText = GameObject.Find("Text Object/Text (TMP) (1)").GetComponent<TMP_Text>();
 
         selectedRawImage.enabled = false;
         selectedVideoPlayer.enabled = false;
