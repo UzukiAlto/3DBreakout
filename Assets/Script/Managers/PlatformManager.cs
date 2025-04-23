@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SmartphoneManager : MonoBehaviour
+public class PlatformManager : MonoBehaviour
 {
     public bool isSmartphone;
     void Start()

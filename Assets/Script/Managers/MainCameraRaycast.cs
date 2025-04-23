@@ -10,14 +10,11 @@ public class MainCameraRaycast : MonoBehaviour
     public GameObject cubeObj;
     private Vector3 cubeObjPos;
     public GameSelectManager gameSelectManager;
+    public PlatformManager platformManager;
     public SEManager seManager;
 
     private float rayLength;
     public LayerMask panelLayer;
-
-    public PlayerPanelManager playerPanelManager;
-    public PlayerController playerController;
-
     public Color defaultTextCol;
     public Color selectedTextCol;
     public List<TMP_Text> textList;
@@ -44,7 +41,13 @@ public class MainCameraRaycast : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, rayLength, panelLayer))
         {
-            if (Input.GetKeyDown(KeyCode.Space) )
+            if (Input.GetMouseButtonUp(0) && platformManager.isSmartphone)
+            {
+
+                Debug.Log(hit.collider.gameObject.name);
+                gameSelectManager.SelectObj(hit.collider.gameObject);
+            }
+            else if(Input.GetKeyDown(KeyCode.Space) && !platformManager.isSmartphone)
             {
 
                 Debug.Log(hit.collider.gameObject.name);

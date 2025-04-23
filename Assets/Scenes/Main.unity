@@ -1316,6 +1316,51 @@ MonoBehaviour:
   blockMaterial: {fileID: 2100000, guid: f5a2846ebeeab434f908ee3f13966f8f, type: 2}
   gm: {fileID: 911674053}
   fadeSpeed: 0.1
+--- !u!1 &252034335
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 252034336}
+  - component: {fileID: 252034337}
+  m_Layer: 0
+  m_Name: PlatformManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &252034336
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 252034335}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 501420142}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &252034337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 252034335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d104a8a8c1208b4dbac826e41238ac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSmartphone: 0
 --- !u!1 &264293064
 GameObject:
   m_ObjectHideFlags: 0
@@ -1936,6 +1981,7 @@ Transform:
   - {fileID: 2131431209}
   - {fileID: 2011138508}
   - {fileID: 1752176268}
+  - {fileID: 252034336}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &555113361
@@ -3138,8 +3184,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectCube: {fileID: 2128804499}
-  lookedObj: {fileID: 0}
   gameSelectManager: {fileID: 715461105}
+  mainCamera: {fileID: 963194225}
+  cubeObj: {fileID: 2128804499}
+  platformManager: {fileID: 252034337}
+  seManager: {fileID: 2011138509}
+  panelLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  defaultTextCol: {r: 0.05, g: 0.05, b: 0.13, a: 1}
+  selectedTextCol: {r: 0.56, g: 0.53, b: 0.3, a: 1}
+  textList:
+  - {fileID: 500536315}
+  - {fileID: 173688024}
+  - {fileID: 1526201191}
+  limitTapSecond: 0.1
+  limitTapDistance: 1
+  isSwiping: 0
 --- !u!1 &982926209
 GameObject:
   m_ObjectHideFlags: 0
@@ -5996,7 +6057,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1919485835
 Transform:
   m_ObjectHideFlags: 0
@@ -6027,12 +6088,11 @@ MonoBehaviour:
   mainCamera: {fileID: 963194225}
   cubeObj: {fileID: 2128804499}
   gameSelectManager: {fileID: 715461105}
+  platformManager: {fileID: 252034337}
   seManager: {fileID: 2011138509}
   panelLayer:
     serializedVersion: 2
     m_Bits: 64
-  playerPanelManager: {fileID: 0}
-  playerController: {fileID: 0}
   defaultTextCol: {r: 0.05, g: 0.05, b: 0.13, a: 1}
   selectedTextCol: {r: 0.56, g: 0.53, b: 0.3, a: 1}
   textList:
