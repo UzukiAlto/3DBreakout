@@ -24,7 +24,7 @@ public class GameSelectManager : MonoBehaviour
     void Start()
     {
         gameScene.SetActive(false);
-        homeScene.SetActive(true);
+        homeScene.SetActive(false);
         gameMode.SetActive(true);
         difficulty.SetActive(false);
         canOperate = true;
