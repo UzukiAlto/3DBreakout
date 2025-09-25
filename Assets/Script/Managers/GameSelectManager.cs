@@ -8,6 +8,7 @@ public class GameSelectManager : MonoBehaviour
 {
     public SEManager seManager;
     public GameObject mainCamera;
+    public GameObject subCamera;
     public GameObject cubeObj;
     public GameObject gameScene;
     public GameObject homeScene;
@@ -24,7 +25,8 @@ public class GameSelectManager : MonoBehaviour
     void Start()
     {
         gameScene.SetActive(false);
-        homeScene.SetActive(false);
+        // homeScene.SetActive(false);
+        homeScene.SetActive(true);
         gameMode.SetActive(true);
         difficulty.SetActive(false);
         canOperate = true;
@@ -98,6 +100,9 @@ public class GameSelectManager : MonoBehaviour
             endMoveGamePos = true;
             // canOperate = true;
             firstLimit = false;
+
+            mainCamera.SetActive(false);
+            subCamera.SetActive(true);
         }
         lastSlerpPos = newSlerpPos;
     }
