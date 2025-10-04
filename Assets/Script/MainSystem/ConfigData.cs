@@ -7,9 +7,25 @@ namespace MainSystem
     /// </summary>
     public class ConfigData : MonoBehaviour
     {
-        private void Start()
-        {
+    
+        private PlayerConfig _playerConfig = new PlayerConfig(2.5f, 0.5f, 0.5f);
 
+        public PlayerConfig GetPlayerConfig()
+        {
+            return _playerConfig;
+        }
+    }
+    public class PlayerConfig
+    {
+        public float sensitivity;
+        public float bgmVolume;
+        public float seVolume;
+
+        public PlayerConfig(float sensitivity, float bgmVolume, float seVolume)
+        {
+            this.sensitivity = sensitivity;
+            this.bgmVolume = bgmVolume;
+            this.seVolume = seVolume;
         }
     }
 }

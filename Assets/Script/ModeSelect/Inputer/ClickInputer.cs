@@ -11,6 +11,10 @@ namespace ModeSelect
 
     public class ClickInputer : InputHandlerBase
     {
+        public override bool IsInputReceived()
+        {
+            throw new System.NotImplementedException();
+        }
         // Start is called before the first frame update
         void Start()
         {

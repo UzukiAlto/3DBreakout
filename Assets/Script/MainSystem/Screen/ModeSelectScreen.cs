@@ -2,23 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ModeSelect
+namespace MainSystem
 {
     /// <summary>
     /// モード選択画面の管理を行うクラス
     /// </summary>
-    public class ModeSelectScreen : MonoBehaviour
+    public class ModeSelectScreen : ScreenBase
     {
-        // Start is called before the first frame update
-        void Start()
+        public override void Hide()
         {
-
+            throw new System.NotImplementedException();
         }
 
-        // Update is called once per frame
-        void Update()
+        public override void Show()
         {
-
+            canOperate = true;
+            throw new System.NotImplementedException();
         }
     }
 }

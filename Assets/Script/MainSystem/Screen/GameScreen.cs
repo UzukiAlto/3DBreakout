@@ -7,18 +7,17 @@ namespace MainSystem
     /// <summary>
     /// ゲームスクリーンの管理を行うクラス
     /// </summary>
-    public class GameScreen : MonoBehaviour
+    public class GameScreen : ScreenBase
     {
-        // Start is called before the first frame update
-        void Start()
-        {
 
+        public override void Hide()
+        {
+            throw new System.NotImplementedException();
         }
 
-        // Update is called once per frame
-        void Update()
+        public override void Show()
         {
-
+            throw new System.NotImplementedException();
         }
     }
 }

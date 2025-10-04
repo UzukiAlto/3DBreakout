@@ -7,18 +7,21 @@ namespace MainSystem
     /// <summary>
     /// キューブの回転を制御する基底クラス
     /// </summary>
-    public abstract class PlayerRotationControllerBase : MonoBehaviour
+    public abstract class PlayerRotationControllerBase : MonoBehaviour, IPlayerRotationControlable
     {
-        // Start is called before the first frame update
-        void Start()
+        [SerializeField] private ScreenBase currentScreen;
+        [SerializeField] protected GameObject playerCameraObj;
+        [SerializeField] private GameObject rotateCenterObj;
+        [SerializeField] private ConfigData configData;
+        public void Rotate(Vector3 rotationAngle)
         {
+            // 操作可能でないなら処理を行わない
+            if (!currentScreen.canOperate) return;
 
-        }
+            rotationAngle *= configData.GetPlayerConfig().sensitivity;
 
-        // Update is called once per frame
-        void Update()
-        {
-
+            playerCameraObj.transform.RotateAround(rotateCenterObj.transform.position, playerCameraObj.transform.up, rotationAngle.x);
+            playerCameraObj.transform.RotateAround(rotateCenterObj.transform.position, playerCameraObj.transform.right, -rotationAngle.y);
         }
     }
 }
