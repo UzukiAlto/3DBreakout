@@ -6,32 +6,29 @@ namespace ModeSelect
     /// <summary>
     /// プレイヤーのキューブに対する回転入力を処理するクラス
     /// </summary>
-    public class RotateInputer : InputHandlerBase
+    public class RotateInputer : InputHandlerBase, IRotateInputable
     {
         private Vector3 rotationInput;
-        private bool isClicking = false;
 
         private void Update()
         {
             if (Input.GetMouseButton(0))
             {
-                isClicking = true;
+                isInputReceived = true;
                 rotationInput.x = Input.GetAxis("Mouse X");
                 rotationInput.y = Input.GetAxis("Mouse Y");
-
-                Debug.Log($"rotationInput: {rotationInput}");
             }
             else
             {
-                isClicking = false;
+                isInputReceived = false;
                 rotationInput = Vector3.zero;
             }
         }
-        public override bool IsInputReceived()
+        public override bool GetIsInputReceived()
         {
-            return isClicking;
+            return isInputReceived;
         }
-        public Vector3 GatPlayerRotationInput()
+        public Vector3 GatRotationInput()
         {
             return rotationInput;
         }

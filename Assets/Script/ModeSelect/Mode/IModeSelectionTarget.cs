@@ -4,9 +4,7 @@ namespace ModeSelect
 {
     public interface IModeSelectionTarget
     {
-        private void Start()
-        {
-
-        }
+        public void SwitchMode();
+        public void ReturnToModeSelect();
     }
 }
