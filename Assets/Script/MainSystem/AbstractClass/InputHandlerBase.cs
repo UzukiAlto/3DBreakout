@@ -9,7 +9,8 @@ namespace MainSystem
     /// </summary>
     public abstract class InputHandlerBase : MonoBehaviour
     {
-        public abstract bool IsInputReceived(); 
+        protected bool isInputReceived = false;
+        public abstract bool GetIsInputReceived(); 
         
     }
 }

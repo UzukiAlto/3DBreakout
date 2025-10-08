@@ -9,22 +9,24 @@ namespace ModeSelect
     /// プレイヤーのキューブに対する決定入力を処理するクラス
     /// </summary>
 
-    public class ClickInputer : InputHandlerBase
+    public class DecisionInputer : InputHandlerBase
     {
-        public override bool IsInputReceived()
+        public override bool GetIsInputReceived()
         {
-            throw new System.NotImplementedException();
-        }
-        // Start is called before the first frame update
-        void Start()
-        {
-
+            return isInputReceived;
         }
 
         // Update is called once per frame
         void Update()
         {
-
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                isInputReceived = true;
+            }
+            else
+            {
+                isInputReceived = false;
+            }
         }
     }
 }

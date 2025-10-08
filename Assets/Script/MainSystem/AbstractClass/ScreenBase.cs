@@ -10,5 +10,13 @@ namespace MainSystem
         public bool canOperate;
         public abstract void Show();
         public abstract void Hide();
+        public void DisableOperation()
+        {
+            canOperate = false;
+        }
+        public void EnableOperation()
+        {
+            canOperate = true;
+        }
     }
 }
