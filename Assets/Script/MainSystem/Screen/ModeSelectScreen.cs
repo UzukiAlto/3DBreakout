@@ -11,13 +11,14 @@ namespace MainSystem
     {
         public override void Hide()
         {
-            throw new System.NotImplementedException();
+            screenCanvas.SetActive(false);
+            SetEnableOperation(false);
         }
 
         public override void Show()
         {
-            canOperate = true;
-            throw new System.NotImplementedException();
+            screenCanvas.SetActive(true);
+            SetEnableOperation(true);
         }
     }
 }

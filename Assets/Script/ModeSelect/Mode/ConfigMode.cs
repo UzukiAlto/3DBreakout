@@ -13,7 +13,7 @@ namespace ModeSelect
         {
             configObjects.SetActive(true);
             configText.SetActive(false);
-            modeSelectScreen.DisableOperation();
+            modeSelectScreen.SetEnableOperation(false);
             Debug.Log("ConfigMode");
         }
         public void ReturnToModeSelect()
