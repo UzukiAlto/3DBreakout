@@ -24,10 +24,10 @@ public class GameSelectManager : MonoBehaviour
     public bool canOperate;
     void Start()
     {
-        gameScene.SetActive(false);
+        // gameScene.SetActive(false);
         // homeScene.SetActive(false);
-        homeScene.SetActive(true);
-        gameMode.SetActive(true);
+        // homeScene.SetActive(true);
+        // gameMode.SetActive(true);
         difficulty.SetActive(false);
         canOperate = true;
     }
@@ -70,6 +70,7 @@ public class GameSelectManager : MonoBehaviour
 
     private void MoveGamePos()
     {
+        Debug.Log("MoveGamePos");
         Vector3 endPos = selectDifficultyPos - cubeObj.transform.position;
         Vector3 startPos = mainCamera.transform.position - cubeObj.transform.position;
         Vector3 newSlerpPos = Vector3.Slerp(startPos, endPos, slerpSpeed);
