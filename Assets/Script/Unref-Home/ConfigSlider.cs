@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 using TMPro;
 
+[System.Obsolete("リファクタリング移行中")]
 public class ConfigSlider : MonoBehaviour
 {
     public RawImage selectedRawImage;

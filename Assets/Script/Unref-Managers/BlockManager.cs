@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[System.Obsolete("リファクタリング移行中")]
 public class BlockManager : MonoBehaviour
 {
     public List<GameObject> blockList;
