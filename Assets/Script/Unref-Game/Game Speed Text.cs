@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+[System.Obsolete("リファクタリング移行中")]
 public class GameSpeedText : MonoBehaviour
 {
     private TMP_Text isText;

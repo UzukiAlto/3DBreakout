@@ -3,6 +3,7 @@ using System.Collections.Generic;
 //using UnityEditor.Build.Content;
 using UnityEngine;
 
+[System.Obsolete("リファクタリング移行中")]
 public class Ball : MonoBehaviour
 {
     [SerializeField] private Vector3 moveVec = Vector3.forward;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+[System.Obsolete("リファクタリング移行中")]
 public class PlayerController : MonoBehaviour
 {
     public GameObject player;

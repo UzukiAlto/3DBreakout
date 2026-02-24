@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+[System.Obsolete("リファクタリング移行中")]
 public class TutorialCamera : MonoBehaviour
 {
     public GameObject tutorialCamera;

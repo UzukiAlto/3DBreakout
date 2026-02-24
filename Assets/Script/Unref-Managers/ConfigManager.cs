@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Obsolete("リファクタリング移行中")]
 public class ConfigManager : MonoBehaviour
 {
     public GameObject configCanvas;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Obsolete("リファクタリング移行中")]
 public class PlayerPanelManager : MonoBehaviour
 {
     public SEManager seManager;
