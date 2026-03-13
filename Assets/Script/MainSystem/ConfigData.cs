@@ -8,7 +8,7 @@ namespace MainSystem
     public class ConfigData : MonoBehaviour
     {
         // debug
-        private PlayerConfig _playerConfig = new PlayerConfig(2.5f, 0.5f, 0.5f);
+        private PlayerConfig _playerConfig = new PlayerConfig(100f, 0.5f, 0.5f);
 
         public PlayerConfig GetPlayerConfig()
         {

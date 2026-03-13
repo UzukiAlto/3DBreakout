@@ -1,6 +1,6 @@
 {
     "version": 1,
-    "name": "InputSystem_Actions",
+    "name": "PlayerInputActions",
     "maps": [
         {
             "name": "Player",
@@ -41,6 +41,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "PointerDelta",
+                    "type": "Value",
+                    "id": "956a5373-e5cb-44a9-9eb3-d3a93e2036fd",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -129,6 +138,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "PointerPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8a11b66f-a46e-4c50-b564-e5d2c51478cf",
+                    "path": "<Pointer>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PointerDelta",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
