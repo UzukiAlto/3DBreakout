@@ -12,22 +12,36 @@ namespace ModeSelect
     {
         [SerializeField] private IModeSelectionTarget configMode;
         [SerializeField] private IModeSelectionTarget gameMode;
-        [SerializeField] private InputHandlerBase decisionInputer;
         [SerializeField] private PlayerRaycast playerRaycast;
         [SerializeField] private SelectingTextColorChanger selectingTextColorChanger;
 
+        [SerializeField] private GameObject playerMoveInputObject; 
+        private IPlayerMoveInput playerMoveInput;
 
-        // Update is called once per frame
-        void Update()
+        private GameObject selectedObject;
+        private void Awake()
         {
-            SelectMode();
+            playerMoveInput = playerMoveInputObject.GetComponent<IPlayerMoveInput>();
         }
 
-        private void SelectMode()
+        // プレイヤーの決定入力にSelectModeを登録
+        private void OnEnable()
         {
+            playerMoveInput.OnSubmit += SelectMode;
+        }
+        private void OnDisable()
+        {
+            playerMoveInput.OnSubmit -= SelectMode;
+        }
 
-            GameObject selectedObject = playerRaycast.GetRaycastHitGameObject();
+        void Update()
+        {
+            selectedObject = playerRaycast.GetRaycastHitGameObject();
+            ChangeModeTextColor();
+        }
 
+        private void ChangeModeTextColor()
+        {
             // 何も選択されていないときは色をリセットして終了
             if (selectedObject == null)
             {
@@ -35,14 +49,14 @@ namespace ModeSelect
                 return;
             }
             selectingTextColorChanger.ChangeToSelectedColor(selectedObject);
+        }
 
-            if (decisionInputer.GetIsInputReceived())
+        private void SelectMode(bool isPressed)
+        {
+            var modeSelectTarget = selectedObject.GetComponent<IModeSelectionTarget>();
+            if (modeSelectTarget != null)
             {
-                var modeSelectTarget = selectedObject.GetComponent<IModeSelectionTarget>();
-                if (modeSelectTarget != null)
-                {
-                    modeSelectTarget.SwitchMode();
-                }
+                modeSelectTarget.SwitchMode();
             }
             
         }
