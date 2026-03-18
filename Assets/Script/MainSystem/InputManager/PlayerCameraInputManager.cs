@@ -53,7 +53,7 @@ namespace MainSystem
         }
 
         // カメラ移動中のスクリーン座標を取得し、ビューポート座標に変換してイベント発火
-        public void HandleCameraMovePerformed(InputAction.CallbackContext context)
+        private void HandleCameraMovePerformed(InputAction.CallbackContext context)
         {
             if (isMoving == false) return;
             Vector2 currentScreenPos = context.ReadValue<Vector2>();
