@@ -76,3 +76,4 @@ crashlytics-build.properties
 # draw.io temporary and backup files
 *.dtmp
 *.bkp
+/[Aa]ssets/Free Assets/
