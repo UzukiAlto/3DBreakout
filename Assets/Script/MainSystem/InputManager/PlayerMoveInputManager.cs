@@ -15,7 +15,6 @@ namespace MainSystem
         public event Action<Vector2> OnMoving;
         public event Action<Vector2> OnMoveEnd;
         public event Action<bool> OnChangePanel;
-        public event Action<bool> OnSubmit;
 
         private PlayerInputActions inputActions;
         private bool isMoving = false;
@@ -34,8 +33,6 @@ namespace MainSystem
             // boolを返すイベントハンドラーはperformedとcanceledの両方に登録して、押下と離したときの両方を検知できるようにする
             inputActions.Player.ChangePanel.performed += HandleChangePanel;
             inputActions.Player.ChangePanel.canceled += HandleChangePanel;
-            inputActions.Player.Submit.performed += HandleSubmit;
-            inputActions.Player.Submit.canceled += HandleSubmit;
         }
 
         private void OnDisable()
@@ -45,8 +42,6 @@ namespace MainSystem
             inputActions.Player.Move.canceled -= HandleMoveCanceled;
             inputActions.Player.ChangePanel.performed -= HandleChangePanel;
             inputActions.Player.ChangePanel.canceled -= HandleChangePanel;
-            inputActions.Player.Submit.performed -= HandleSubmit;
-            inputActions.Player.Submit.canceled -= HandleSubmit;
 
             inputActions.Disable();
         }
@@ -77,10 +72,5 @@ namespace MainSystem
             OnChangePanel?.Invoke(isPressed);
         }
 
-        private void HandleSubmit(InputAction.CallbackContext context)
-        {
-            bool isPressed = context.ReadValueAsButton();
-            OnSubmit?.Invoke(isPressed);
-        }
     }
 }

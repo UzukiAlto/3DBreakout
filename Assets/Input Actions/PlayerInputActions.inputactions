@@ -16,15 +16,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Submit",
-                    "type": "Button",
-                    "id": "bfc697bf-64ec-49f2-9089-b85cf511c166",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Move",
                     "type": "Value",
                     "id": "84978cd8-c13b-4c94-b566-4e42663d6bcf",
@@ -160,10 +151,27 @@
                     "action": "PointerDelta",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
+                }
+            ]
+        },
+        {
+            "name": "System",
+            "id": "6f392521-27d1-4260-a088-d0b2affdf147",
+            "actions": [
+                {
+                    "name": "Submit",
+                    "type": "Button",
+                    "id": "a023d56f-74b5-46f7-9348-2a61d0f3b24f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
                 {
                     "name": "",
-                    "id": "5d844f50-95bb-4399-8025-d8388c71d804",
+                    "id": "f177f993-2a1b-478a-9d04-42534cfc224c",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
