@@ -11,12 +11,14 @@ namespace MainSystem
     {
         public override void Hide()
         {
+            base.Hide();
             screenCanvas.SetActive(false);
             SetEnableOperation(false);
         }
 
         public override void Show()
         {
+            base.Show();
             screenCanvas.SetActive(true);
             SetEnableOperation(true);
         }
