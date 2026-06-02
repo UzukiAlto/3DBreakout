@@ -46,18 +46,20 @@ namespace MainSystem
         // カメラ移動開始時のスクリーン座標を取得し、ビューポート座標に変換してイベント発火
         private void HandleCameraMoveStarted(InputAction.CallbackContext context)
         {
+            if (CurrentScreen.currentScreen == null) return; 
             isMoving = true;
             Vector2 startScreenPos = inputActions.Player.PointerPosition.ReadValue<Vector2>();
-            Vector2 startViewportPos = Camera.main.ScreenToViewportPoint(startScreenPos);
+            Vector2 startViewportPos = CurrentScreen.currentScreen.screenCamera.ScreenToViewportPoint(startScreenPos);
             OnCameraMoveStart?.Invoke(startViewportPos);
         }
 
         // カメラ移動中のスクリーン座標を取得し、ビューポート座標に変換してイベント発火
         private void HandleCameraMovePerformed(InputAction.CallbackContext context)
         {
+            if (CurrentScreen.currentScreen == null) return; 
             if (isMoving == false) return;
             Vector2 currentScreenPos = context.ReadValue<Vector2>();
-            Vector2 currentViewportPos = Camera.main.ScreenToViewportPoint(currentScreenPos);
+            Vector2 currentViewportPos = CurrentScreen.currentScreen.screenCamera.ScreenToViewportPoint(currentScreenPos);
 
             OnCameraMoving?.Invoke(currentViewportPos);
         }
@@ -65,9 +67,10 @@ namespace MainSystem
         // カメラ移動終了時のスクリーン座標を取得し、ビューポート座標に変換してイベント発火
         private void HandleCameraMoveCanceled(InputAction.CallbackContext context)
         {
+            if (CurrentScreen.currentScreen == null) return; 
             isMoving = false;
             Vector2 endScreenPos = inputActions.Player.PointerPosition.ReadValue<Vector2>();
-            Vector2 endViewportPos = Camera.main.ScreenToViewportPoint(endScreenPos);
+            Vector2 endViewportPos = CurrentScreen.currentScreen.screenCamera.ScreenToViewportPoint(endScreenPos);
             OnCameraMoveEnd?.Invoke(endViewportPos);
         }
 

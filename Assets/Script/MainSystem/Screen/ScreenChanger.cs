@@ -21,6 +21,7 @@ namespace MainSystem
 
             // debug
             currentScreen = modeSelectScreen;
+            currentScreen.Show();
         }
 
         // ただスクリーンを変更するだけのときはscreenEnumのみを渡す

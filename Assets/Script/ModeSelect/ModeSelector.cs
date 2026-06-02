@@ -15,23 +15,23 @@ namespace ModeSelect
         [SerializeField] private PlayerRaycast playerRaycast;
         [SerializeField] private SelectingTextColorChanger selectingTextColorChanger;
 
-        [SerializeField] private GameObject playerMoveInputObject; 
-        private IPlayerMoveInput playerMoveInput;
+        [SerializeField] private GameObject systemInputObject; 
+        private ISystemInput systemInput;
 
         private GameObject selectedObject;
         private void Awake()
         {
-            playerMoveInput = playerMoveInputObject.GetComponent<IPlayerMoveInput>();
+            systemInput = systemInputObject.GetComponent<ISystemInput>();  
         }
 
         // プレイヤーの決定入力にSelectModeを登録
         private void OnEnable()
         {
-            playerMoveInput.OnSubmit += SelectMode;
+            systemInput.OnSubmit += SelectMode;
         }
         private void OnDisable()
         {
-            playerMoveInput.OnSubmit -= SelectMode;
+            systemInput.OnSubmit -= SelectMode;
         }
 
         void Update()
