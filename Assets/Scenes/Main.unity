@@ -751,8 +751,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a9d84025afd03440bb2b404a0b01933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraObj: {fileID: 0}
-  isRotateText: 1
 --- !u!1 &188626196
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,13 +1135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9123b207351aa52479bdf24fd228177d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subCamera: {fileID: 242682541}
-  centerObj: {fileID: 1122708028}
-  panelLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  playerPanelManager: {fileID: 1829823865}
-  playerController: {fileID: 2063469970}
 --- !u!1 &242682541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1313,14 +1304,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39ed0afa852ee664a8dcd2bb5be1d5c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockList: []
-  blocksParent: {fileID: 595947460}
-  cubes: {fileID: 8160245162310459991, guid: a31c88177c162a447969dd06b5a37796, type: 3}
-  spheres: {fileID: 994387425920979619, guid: 902110c9fc39cbc4f81117dcd9ef94ba, type: 3}
-  pyramids: {fileID: 45070502540813101, guid: ab4ccfa25b4299a49b97aab6c1c0993e, type: 3}
-  blockMaterial: {fileID: 2100000, guid: f5a2846ebeeab434f908ee3f13966f8f, type: 2}
-  gm: {fileID: 911674053}
-  fadeSpeed: 0.1
 --- !u!1 &247530537
 GameObject:
   m_ObjectHideFlags: 0
@@ -1433,7 +1416,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d104a8a8c1208b4dbac826e41238ac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSmartphone: 0
 --- !u!1 &264293064
 GameObject:
   m_ObjectHideFlags: 0
@@ -2175,8 +2157,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a9d84025afd03440bb2b404a0b01933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraObj: {fileID: 0}
-  isRotateText: 1
 --- !u!1 &501420141
 GameObject:
   m_ObjectHideFlags: 0
@@ -2763,19 +2743,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9038c425b2d9b14d960604f26227ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seManager: {fileID: 2011138509}
-  mainCamera: {fileID: 963194225}
-  subCamera: {fileID: 242682541}
-  cubeObj: {fileID: 2128804499}
-  gameScene: {fileID: 1711235200}
-  homeScene: {fileID: 1122372179}
-  gameMode: {fileID: 989505931}
-  difficulty: {fileID: 841534391}
-  configText: {fileID: 173688022}
-  configObjects: {fileID: 2129329858}
-  gm: {fileID: 911674053}
-  slerpSpeed: 0.02
-  canOperate: 0
 --- !u!1001 &763879486
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3092,24 +3059,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 911674051}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df8334e5c0365654ea73e760326ea042, type: 3}
+  m_Script: {fileID: 11500000, guid: cda99e8a3aa5a7149b61d4992a796c57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballScr: {fileID: 1350937327}
-  subCamera: {fileID: 0}
-  panelManager: {fileID: 1829823865}
-  playerController: {fileID: 2063469970}
-  seManager: {fileID: 2011138509}
-  blockManager: {fileID: 242982330}
-  ballObj: {fileID: 1350937322}
-  livesList: []
-  livesObj: {fileID: 264293064}
-  retryText: {fileID: 555113361}
-  startText: {fileID: 1999127130}
-  gameSpeedText: {fileID: 207763155}
-  gameCamera: {fileID: 242682543}
-  homeCamera: {fileID: 963194227}
-  currentDifficulty: 0
+  systemInputObject: {fileID: 438117278}
+  gameScreen: {fileID: 1711235202}
 --- !u!1 &934909571
 GameObject:
   m_ObjectHideFlags: 0
@@ -3156,17 +3110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e309168664484a643a36cddd4225464f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialCamera: {fileID: 934909571}
-  cubeObj: {fileID: 388257369}
-  platformManager: {fileID: 252034337}
-  seManager: {fileID: 2011138509}
-  panelLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  defaultTextCol: {r: 0, g: 0, b: 0, a: 0}
-  selectedTextCol: {r: 0, g: 0, b: 0, a: 0}
-  textList: []
-  isSwiping: 0
 --- !u!81 &934909574
 AudioListener:
   m_ObjectHideFlags: 0
@@ -3434,22 +3377,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afdc2ff0844ea5345a5faef02f6487b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectCube: {fileID: 2128804499}
-  gameSelectManager: {fileID: 715461105}
-  mainCamera: {fileID: 963194225}
-  cubeObj: {fileID: 2128804499}
-  platformManager: {fileID: 252034337}
-  seManager: {fileID: 2011138509}
-  panelLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  defaultTextCol: {r: 0.05, g: 0.05, b: 0.13, a: 1}
-  selectedTextCol: {r: 0.56, g: 0.53, b: 0.3, a: 1}
-  textList:
-  - {fileID: 500536315}
-  - {fileID: 173688024}
-  - {fileID: 1526201191}
-  isSwiping: 0
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3750,6 +3677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <cameraObject>k__BackingField: {fileID: 963194225}
   <screenCanvas>k__BackingField: {fileID: 2122611395}
+  <screenCamera>k__BackingField: {fileID: 963194227}
 --- !u!1 &1122708028
 GameObject:
   m_ObjectHideFlags: 0
@@ -4784,14 +4712,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1ce3343cae74341aace3c4d6a5b74c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveVec: {x: 0, y: 0, z: 0}
-  player: {fileID: 1955713236}
-  gm: {fileID: 911674053}
-  forecastBall: {fileID: 78887581}
-  forecastBallMaterial: {fileID: 2100000, guid: 8196048e26d50854da01da50cd473307, type: 2}
-  playerController: {fileID: 2063469970}
-  blockManager: {fileID: 242982330}
-  seManager: {fileID: 2011138509}
 --- !u!54 &1350937328
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5148,8 +5068,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a9d84025afd03440bb2b404a0b01933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraObj: {fileID: 0}
-  isRotateText: 1
 --- !u!1 &1555421000
 GameObject:
   m_ObjectHideFlags: 0
@@ -5980,6 +5898,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <cameraObject>k__BackingField: {fileID: 242682541}
   <screenCanvas>k__BackingField: {fileID: 247530537}
+  <screenCamera>k__BackingField: {fileID: 242682543}
+  gameManager: {fileID: 911674053}
 --- !u!1 &1729559993
 GameObject:
   m_ObjectHideFlags: 0
@@ -6464,13 +6384,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dad54a1515726834ead49cdf4ff23c2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seManager: {fileID: 2011138509}
-  playerPanels: {fileID: 316927324}
-  operatingObj: {fileID: 0}
-  panelList: []
-  operatingMaterial: {fileID: 2100000, guid: 6e5c4091524284f42ae4a81a9c520541, type: 2}
-  selectingMaterial: {fileID: 2100000, guid: 82336afd2a5058d48820c27e0b431882, type: 2}
-  defaultMaterial: {fileID: 2100000, guid: d803ee494d22bbd4589b060ac6c2767f, type: 2}
 --- !u!1 &1831343033
 GameObject:
   m_ObjectHideFlags: 0
@@ -6736,20 +6649,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b55aed1b46f52514f9414910ae057848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 963194225}
-  cubeObj: {fileID: 2128804499}
-  gameSelectManager: {fileID: 715461105}
-  platformManager: {fileID: 252034337}
-  seManager: {fileID: 2011138509}
-  panelLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  defaultTextCol: {r: 0.05, g: 0.05, b: 0.13, a: 1}
-  selectedTextCol: {r: 0.56, g: 0.53, b: 0.3, a: 1}
-  textList:
-  - {fileID: 500536315}
-  - {fileID: 173688024}
-  - {fileID: 1526201191}
 --- !u!1 &1924413892
 GameObject:
   m_ObjectHideFlags: 0
@@ -6887,10 +6786,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c723360b5b978cf41b524b955296200d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 8
-  subCamera: {fileID: 242682541}
-  playerController: {fileID: 2063469970}
-  playerRange: {x: 4.25, y: 4.25, z: 4.25}
 --- !u!65 &1955713237
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7256,12 +7151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77c47ab208f51444a268b06a2ae6b62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seAudioSource: {fileID: 2011138510}
-  sound_ball: {fileID: 8300000, guid: b27343cecd9c2ef489e1fe9045066a53, type: 3}
-  sound_fail: {fileID: 8300000, guid: 74aad2da7b9660840878ddfa783be9be, type: 3}
-  sound_next: {fileID: 8300000, guid: cbce18ade4151464b9c73dc699d3d2be, type: 3}
-  sound_transition: {fileID: 8300000, guid: c0431c0fb53693a429a90a4cf552e01d, type: 3}
-  sound_select: {fileID: 8300000, guid: bb0c1d6e5b2d76c44a592b673782a527, type: 3}
 --- !u!82 &2011138510
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7775,12 +7664,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 082518cdd725c0b41af2882292ce564c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1955713235}
-  mainCamera: {fileID: 963194225}
-  ball: {fileID: 1350937322}
-  playerPanels: {fileID: 316927324}
-  panelList: []
-  currentPlayerDirection: 0
 --- !u!4 &2063469971
 Transform:
   m_ObjectHideFlags: 0
@@ -8197,8 +8080,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 028361060c8f4a749bc8826da61909a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 0}
-  assistPanel: {fileID: 0}
 --- !u!1 &2141258468
 GameObject:
   m_ObjectHideFlags: 0
