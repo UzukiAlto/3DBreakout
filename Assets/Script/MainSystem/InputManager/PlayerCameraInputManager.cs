@@ -46,7 +46,10 @@ namespace MainSystem
         // カメラ移動開始時のスクリーン座標を取得し、ビューポート座標に変換してイベント発火
         private void HandleCameraMoveStarted(InputAction.CallbackContext context)
         {
-            if (CurrentScreen.currentScreen == null) return; 
+            if (CurrentScreen.currentScreen == null)            {
+                Debug.LogWarning("CurrentScreen が null です。カメラ移動を開始できません。");
+                return;
+            }
             isMoving = true;
             Vector2 startScreenPos = inputActions.Player.PointerPosition.ReadValue<Vector2>();
             Vector2 startViewportPos = CurrentScreen.currentScreen.screenCamera.ScreenToViewportPoint(startScreenPos);

@@ -37,16 +37,25 @@ namespace MainSystem
         // スクリーン変更アニメーションを再生するときは変更後のscreenEnumと変更前のcubeObjを渡す
         public void ChangeScreen(ScreenEnum screenEnum, GameObject previousCubeObj)
         {
-            if (currentScreen == screenDict[screenEnum]) return;
-            if (previousCubeObj == null) return;
+            if (currentScreen == screenDict[screenEnum])
+            {
+                Debug.Log("すでに " + screenEnum + "です");
+                return;
+            }
+            if (previousCubeObj == null)
+            {
+                Debug.LogError("previousCubeObjがnullです");
+                return;
+            }
 
             previousScreen = currentScreen;
             currentScreen = screenDict[screenEnum];
 
             previousScreen.SetEnableOperation(false);
+            Debug.Log("ChangeScreen Start: " + previousScreen.name + " -> " + currentScreen.name);
+            
             currentScreen.Show();
 
-            Debug.Log("MoveGamePos");
             Vector3 endPos = currentScreen.cameraObject.transform.position - previousCubeObj.transform.position;
             Vector3 startPos = previousScreen.cameraObject.transform.position - previousCubeObj.transform.position;
 

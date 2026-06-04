@@ -53,6 +53,9 @@ namespace ModeSelect
 
         private void SelectMode(bool isPressed)
         {
+            if (!isPressed) return; // ボタンが押されたときのみ反応
+            if (selectedObject == null) return; // 何も選択されていないときは終了
+            
             var modeSelectTarget = selectedObject.GetComponent<IModeSelectionTarget>();
             if (modeSelectTarget != null)
             {
