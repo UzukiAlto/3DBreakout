@@ -6,12 +6,14 @@ namespace Game
 {
     public class PlayerPanelArea : MonoBehaviour
     {
-        public Vector3 normalVector = Vector3.forward; // 面の法線ベクトル
+        [SerializeField] private GameObject moveableAreaObject;
+        public Vector3 normalVector;
         // プレイヤーパネルが移動できる範囲を定義するためのBounds
-        public Bounds moveableArea;
+        public Bounds moveableAreaBounds;
         void Awake()
         {
-            moveableArea = transform.GetComponent<BoxCollider>().bounds;
+            normalVector = transform.forward;
+            moveableAreaBounds = moveableAreaObject.GetComponent<BoxCollider>().bounds;
         }
     }
 }
