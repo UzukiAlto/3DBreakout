@@ -11,6 +11,8 @@ namespace MainSystem
     public class GameScreen : ScreenBase
     {
         [SerializeField] private GameManager gameManager;
+        // 初期化の順番を変更できるようにリストで管理
+        [SerializeField] private List<GameObject> initializableList = new List<GameObject>();
         public override void Hide()
         {
             base.Hide();
@@ -23,6 +25,10 @@ namespace MainSystem
             base.Show();
             screenCanvas.SetActive(true);
             SetEnableOperation(false);
+            foreach (var item in initializableList)
+            {
+                item.GetComponent<IInitializable>()?.Initialize();
+            }
         }
     }
 }
