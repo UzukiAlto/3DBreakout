@@ -18,6 +18,7 @@ namespace MainSystem
 
         private PlayerInputActions inputActions;
         private bool isMoving = false;
+        [SerializeField]private Vector2 moveInput;
 
         private void Awake()
         {
@@ -27,7 +28,6 @@ namespace MainSystem
         {
             inputActions.Enable();
 
-            inputActions.Player.Move.started += HandlePlayerMoveStarted;
             inputActions.Player.Move.performed += HandleMovePerformed;
             inputActions.Player.Move.canceled += HandleMoveCanceled;
             // boolを返すイベントハンドラーはperformedとcanceledの両方に登録して、押下と離したときの両方を検知できるようにする
@@ -37,7 +37,6 @@ namespace MainSystem
 
         private void OnDisable()
         {            
-            inputActions.Player.Move.started -= HandlePlayerMoveStarted;
             inputActions.Player.Move.performed -= HandleMovePerformed;
             inputActions.Player.Move.canceled -= HandleMoveCanceled;
             inputActions.Player.ChangePanel.performed -= HandleChangePanel;
@@ -46,24 +45,29 @@ namespace MainSystem
             inputActions.Disable();
         }
 
-        private void HandlePlayerMoveStarted(InputAction.CallbackContext context)
+        private void Update()
         {
-            isMoving = true;
-            Vector2 startMoveInput = context.ReadValue<Vector2>();
-            OnMoveStart?.Invoke(startMoveInput);
+            HandleMoveOngoing();
+        }
+
+
+        private void HandleMoveOngoing()
+        {
+            if (isMoving == false) return;
+            OnMoving?.Invoke(moveInput);
         }
 
         private void HandleMovePerformed(InputAction.CallbackContext context)
         {
-            if (isMoving == false) return;
-            Vector2 currentMoveInput = context.ReadValue<Vector2>();
-            OnMoving?.Invoke(currentMoveInput);
+            isMoving = true;
+            moveInput = context.ReadValue<Vector2>();
+            OnMoveStart?.Invoke(moveInput);
         }
         private void HandleMoveCanceled(InputAction.CallbackContext context)
         {
             isMoving = false;
-            Vector2 endMoveInput = context.ReadValue<Vector2>();
-            OnMoveEnd?.Invoke(endMoveInput);
+            moveInput = context.ReadValue<Vector2>();
+            OnMoveEnd?.Invoke(moveInput);
         }
 
         private void HandleChangePanel(InputAction.CallbackContext context)
