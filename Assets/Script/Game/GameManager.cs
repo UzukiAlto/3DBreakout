@@ -11,6 +11,7 @@ namespace Game
         [SerializeField] private GameObject systemInputObject; 
         [SerializeField] private ScreenBase gameScreen;
         private ISystemInput systemInput;
+        private bool isGameStarted = false;
         private void Awake()
         {
             systemInput = systemInputObject.GetComponent<ISystemInput>();  
@@ -31,9 +32,12 @@ namespace Game
 
         public void StartGame(bool isPressed)
         {
-            if (!isPressed) return; // ボタンが押されたときのみ反応
+            if (!isPressed || isGameStarted)
+            {
+                return;
+            }
             Debug.Log("Start Game");
-
+            isGameStarted = true;
             gameScreen.SetEnableOperation(true);
         }
     }
