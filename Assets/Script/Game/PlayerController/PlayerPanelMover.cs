@@ -5,7 +5,7 @@ using MainSystem;
 
 namespace Game
 {
-    public class PlayerPanelMover : MonoBehaviour, IInitializable
+    public class PlayerPanelMover : MonoBehaviour
     {
         [SerializeField] private GameObject playerMoveInputObject;
         [SerializeField] private GameObject playerPanel;
@@ -14,9 +14,6 @@ namespace Game
         [SerializeField] private GameManager gameManager;
         private IPlayerMoveInput playerMoveInput; 
         private float baseMoveSpeed = 0.1f;
-        public void Initialize()
-        {
-        }
         void Awake()
         {
             playerMoveInput = playerMoveInputObject.GetComponent<IPlayerMoveInput>();            
@@ -28,10 +25,6 @@ namespace Game
             playerMoveInput.OnMoving -= MovePlayerPanel;
         }
 
-        void Update()
-        {
-            
-        }
 
         private void MovePlayerPanel(Vector2 moveDelta)
         {
