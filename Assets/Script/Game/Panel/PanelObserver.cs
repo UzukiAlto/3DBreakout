@@ -9,9 +9,10 @@ namespace Game
     {
         // public GameObject currentSelectedPanel;
         public GameObject currentSelectedPanel { get; private set; }
-        public GameObject currentOperatedPanel { get; private set; }
+        public GameObject currentOperatingPanel { get; private set; }
         [SerializeField] private PlayerRaycastHandler playerRaycastHandler;
         public event Action<GameObject> OnSelectedPanelChanged;
+        public event Action<GameObject> OnOperatingPanelChanged;
 
         void Update()
         {
@@ -42,9 +43,10 @@ namespace Game
             }
         }
 
-        public void SetCurrentOperatedPanel(GameObject panel)
+        public void SetCurrentOperatingPanel(GameObject panel)
         {
-            currentOperatedPanel = panel;
+            currentOperatingPanel = panel;
+            OnOperatingPanelChanged?.Invoke(currentOperatingPanel);
         }
 
 

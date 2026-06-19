@@ -28,7 +28,7 @@ namespace Game
 
         private void MovePlayerPanel(Vector2 moveDelta)
         {
-            if (panelObserver.currentOperatedPanel == null)
+            if (panelObserver.currentOperatingPanel == null)
             {
                 Debug.Log("No panel to move on");
                 return;
@@ -39,7 +39,7 @@ namespace Game
             inputDirection *= baseMoveSpeed * gameManager.gameSpeed; 
 
             // パネルに対して平行に移動させる
-            Vector3 normalVector = panelObserver.currentOperatedPanel.GetComponent<PlayerPanelArea>().normalVector;
+            Vector3 normalVector = panelObserver.currentOperatingPanel.GetComponent<PlayerPanelArea>().normalVector;
             Vector3 nextPos = playerPanel.transform.position + Vector3.ProjectOnPlane(inputDirection, normalVector);
 
             playerPanel.transform.position = nextPos;

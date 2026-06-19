@@ -13,7 +13,7 @@ namespace Game
         [SerializeField] private Material operatingMaterial;
         [SerializeField] private Material selectingMaterial;
         [SerializeField] private Material defaultMaterial;
-        
+
         [SerializeField] private PanelObserver panelObserver;
 
         public void Initialize()
@@ -27,17 +27,22 @@ namespace Game
 
         void OnEnable()
         {
-            panelObserver.OnSelectedPanelChanged += SelectingPanel;
+            panelObserver.OnSelectedPanelChanged += ChangeSelectingPanelColor;
+            panelObserver.OnOperatingPanelChanged += ChangeOperatingPanelColor;
         }
         void OnDisable()
         {
-            panelObserver.OnSelectedPanelChanged -= SelectingPanel;
+            panelObserver.OnSelectedPanelChanged -= ChangeSelectingPanelColor;
+            panelObserver.OnOperatingPanelChanged -= ChangeOperatingPanelColor;
         }
 
-        public void SelectingPanel(GameObject selectObj)
+        public void ChangeSelectingPanelColor(GameObject selectObj)
         {
-            Renderer selectingRenderer = selectObj.GetComponent<Renderer>();
-            Renderer operatingRenderer = panelObserver.currentOperatedPanel.GetComponent<Renderer>();
+            if (selectObj == null || panelObserver.currentOperatingPanel == null || !selectObj.TryGetComponent(out Renderer selectingRenderer))
+            {
+                return;
+            }
+            Renderer operatingRenderer = panelObserver.currentOperatingPanel.GetComponent<Renderer>();
             foreach (Renderer renderer in panelRendererList)
             {
                 if(renderer != operatingRenderer)
@@ -49,6 +54,22 @@ namespace Game
             {
                 selectingRenderer.material = selectingMaterial;
             }
+        }
+        public void ChangeOperatingPanelColor(GameObject operateObj)
+        {
+            if (operateObj == null || !operateObj.TryGetComponent(out Renderer operatingRenderer))
+            {
+                Debug.LogWarning("操作対象のオブジェクトがnullまたはRendererがありません");
+                return;
+            }
+            foreach (Renderer renderer in panelRendererList)
+            {
+                if(renderer != operatingRenderer)
+                {
+                    renderer.material = defaultMaterial;
+                }
+            }
+            operatingRenderer.material = operatingMaterial;
         }
     }
 }
