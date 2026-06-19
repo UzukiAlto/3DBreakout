@@ -5,8 +5,9 @@ using MainSystem;
 
 namespace Game
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : MonoBehaviour, IInitializable
     {        
+        public float gameSpeed { get; private set; } = 1f;
         [SerializeField] private GameObject systemInputObject; 
         [SerializeField] private ScreenBase gameScreen;
         private ISystemInput systemInput;
@@ -22,6 +23,10 @@ namespace Game
         private void OnDisable()
         {
             systemInput.OnSubmit -= StartGame;
+        }
+        public void Initialize()
+        {
+            gameSpeed = 1f;
         }
 
         public void StartGame(bool isPressed)
