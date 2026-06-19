@@ -11,7 +11,9 @@ namespace Game
         [SerializeField] private GameObject playerPanel;
         [SerializeField] private ScreenBase gameScreen;
         [SerializeField] private PanelObserver panelObserver;
+        [SerializeField] private GameManager gameManager;
         private IPlayerMoveInput playerMoveInput; 
+        private float baseMoveSpeed = 0.1f;
         public void Initialize()
         {
         }
@@ -40,12 +42,12 @@ namespace Game
             }
 
             Vector3 inputDirection = moveDelta.x * gameScreen.screenCamera.transform.right + moveDelta.y * gameScreen.screenCamera.transform.up; 
-            inputDirection *= 0.1f; // 移動速度の調整
+            // 移動速度の調整
+            inputDirection *= baseMoveSpeed * gameManager.gameSpeed; 
 
             // パネルに対して平行に移動させる
             Vector3 normalVector = panelObserver.currentOperatedPanel.GetComponent<PlayerPanelArea>().normalVector;
             Vector3 nextPos = playerPanel.transform.position + Vector3.ProjectOnPlane(inputDirection, normalVector);
-            Debug.Log($"ProjectOnPlane result: {Vector3.ProjectOnPlane(inputDirection, normalVector)}");
 
             playerPanel.transform.position = nextPos;
         }
