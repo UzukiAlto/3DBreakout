@@ -41,6 +41,10 @@ namespace Game
 
             panelObserver.SetCurrentOperatingPanel(panelObserver.currentSelectedPanel);
             
+            if (panelObserver.currentOperatingPanel == null)
+            {
+                return;
+            }
             Transform operatingPanelTransform = panelObserver.currentOperatingPanel.transform;
             playerPanel.transform.position = operatingPanelTransform.position + operatingPanelTransform.forward * panelFrontOffset;
             playerPanel.transform.rotation = operatingPanelTransform.rotation;

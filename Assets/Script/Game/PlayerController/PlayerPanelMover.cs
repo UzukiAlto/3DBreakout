@@ -38,10 +38,18 @@ namespace Game
             // 移動速度の調整
             inputDirection *= baseMoveSpeed * gameManager.gameSpeed; 
 
+            PlayerPanelArea currentPanelArea = panelObserver.currentOperatingPanel.GetComponent<PlayerPanelArea>();
             // パネルに対して平行に移動させる
-            Vector3 normalVector = panelObserver.currentOperatingPanel.GetComponent<PlayerPanelArea>().normalVector;
+            Vector3 normalVector = currentPanelArea.normalVector;
             Vector3 nextPos = playerPanel.transform.position + Vector3.ProjectOnPlane(inputDirection, normalVector);
 
+            // プレイヤーパネルが移動できる範囲を制限する
+            Bounds panelBounds = currentPanelArea.moveableAreaBounds;
+            nextPos = new Vector3(
+                Mathf.Clamp(nextPos.x,  panelBounds.min.x, panelBounds.max.x),
+                Mathf.Clamp(nextPos.y, panelBounds.min.y, panelBounds.max.y),
+                Mathf.Clamp(nextPos.z, panelBounds.min.z, panelBounds.max.z)
+            );
             playerPanel.transform.position = nextPos;
         }
     }

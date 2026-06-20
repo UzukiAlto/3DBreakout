@@ -7451,6 +7451,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelObserver: {fileID: 1937645134}
   initialPanel: {fileID: 1813338922}
+  playerMoveInputObject: {fileID: 1729559993}
+  playerPanel: {fileID: 1955713235}
 --- !u!1 &2011138507
 GameObject:
   m_ObjectHideFlags: 0
