@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Game;
@@ -13,6 +14,20 @@ namespace MainSystem
         [SerializeField] private GameManager gameManager;
         // 初期化の順番を変更できるようにリストで管理
         [SerializeField] private List<GameObject> initializableList = new List<GameObject>();
+        // gameManager.GameStartedとSetEnableOperationは引数が異なるためeventで中継
+        private event Action setEnableOperationEvent;
+        private void Awake()
+        {
+            setEnableOperationEvent = () => SetEnableOperation(true);
+        }
+        private void OnEnable()
+        {
+            gameManager.OnGameStarted += setEnableOperationEvent;
+        }
+        private void OnDisable()
+        {
+            gameManager.OnGameStarted -= setEnableOperationEvent;
+        }
         public override void Hide()
         {
             base.Hide();

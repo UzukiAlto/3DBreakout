@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,9 +10,10 @@ namespace Game
     {        
         public float gameSpeed { get; private set; } = 1f;
         [SerializeField] private GameObject systemInputObject; 
-        [SerializeField] private ScreenBase gameScreen;
         private ISystemInput systemInput;
         private bool isGameStarted = false;
+
+        public event Action OnGameStarted;
         private void Awake()
         {
             systemInput = systemInputObject.GetComponent<ISystemInput>();  
@@ -38,7 +40,7 @@ namespace Game
             }
             Debug.Log("Start Game");
             isGameStarted = true;
-            gameScreen.SetEnableOperation(true);
+            OnGameStarted?.Invoke();
         }
     }
 }
