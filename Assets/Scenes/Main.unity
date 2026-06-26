@@ -3116,7 +3116,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   systemInputObject: {fileID: 438117278}
-  gameScreen: {fileID: 1711235202}
 --- !u!1 &934909571
 GameObject:
   m_ObjectHideFlags: 0
@@ -5834,6 +5833,7 @@ RectTransform:
   - {fileID: 1937645133}
   - {fileID: 1370778935}
   - {fileID: 1634665513}
+  - {fileID: 2099589901}
   m_Father: {fileID: 247530539}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -8027,6 +8027,60 @@ Transform:
   m_Children: []
   m_Father: {fileID: 501420142}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2099589900
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2099589901}
+  - component: {fileID: 2099589902}
+  m_Layer: 0
+  m_Name: BlockGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2099589901
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099589900}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1697518495}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2099589902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099589900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eb3274d320e3e048a45b409330a44c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 911674053}
+  cubes: {fileID: 8160245162310459991, guid: a31c88177c162a447969dd06b5a37796, type: 3}
+  spheres: {fileID: 994387425920979619, guid: 902110c9fc39cbc4f81117dcd9ef94ba, type: 3}
+  pyramids: {fileID: 45070502540813101, guid: ab4ccfa25b4299a49b97aab6c1c0993e, type: 3}
+  blockParent: {fileID: 595947460}
+  blockMaterial: {fileID: 0}
 --- !u!1 &2112515199
 GameObject:
   m_ObjectHideFlags: 0
