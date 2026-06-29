@@ -14,6 +14,7 @@ namespace Game
         private bool isGameStarted = false;
 
         public event Action OnGameStarted;
+        public event Action OnGameReady;
         private void Awake()
         {
             systemInput = systemInputObject.GetComponent<ISystemInput>();  
@@ -30,6 +31,11 @@ namespace Game
         public void Initialize()
         {
             gameSpeed = 1f;
+        }
+
+        public void PrepareGame()
+        {
+            OnGameReady?.Invoke();
         }
 
         public void StartGame(bool isPressed)

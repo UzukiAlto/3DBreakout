@@ -44,6 +44,7 @@ namespace MainSystem
             {
                 item.GetComponent<IInitializable>()?.Initialize();
             }
+            gameManager.PrepareGame();
         }
     }
 }
