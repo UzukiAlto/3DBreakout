@@ -25,17 +25,18 @@ namespace Game
 
         private void OnEnable()
         {
-            gameManager.OnGameStarted += GenerateBlock;
+            gameManager.OnGameReady += GenerateBlock;
         }
 
         void OnDisable()
         {
             
-            gameManager.OnGameStarted -= GenerateBlock;
+            gameManager.OnGameReady -= GenerateBlock;
         }
 
         public void GenerateBlock()
         {
+            // 出現させるブロックの種類、傾きをランダムにする
             GameObject nextBlockPrefab = allBlockList[Random.Range(0, allBlockList.Count)];
             
             Quaternion quaternion = Quaternion.Euler(Random.Range(-30, 30), Random.Range(-30, 30), 0);
