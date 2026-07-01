@@ -11,7 +11,7 @@ namespace Game
         public float gameSpeed { get; private set; } = 1f;
         [SerializeField] private GameObject systemInputObject; 
         private ISystemInput systemInput;
-        private bool isGameStarted = false;
+        public bool isGamePlaying { get; private set; } = false;
 
         public event Action OnGameStarted;
         public event Action OnGameReady;
@@ -40,12 +40,12 @@ namespace Game
 
         public void StartGame(bool isPressed)
         {
-            if (!isPressed || isGameStarted)
+            if (!isPressed || isGamePlaying)
             {
                 return;
             }
             Debug.Log("Start Game");
-            isGameStarted = true;
+            isGamePlaying = true;
             OnGameStarted?.Invoke();
         }
     }

@@ -13,7 +13,7 @@ namespace Game
         [SerializeField] private GameObject playerPanel;
         private IPlayerMoveInput playerMoveInput;
         // playerPanelを前に少しずらすためのオフセット値
-        private float panelFrontOffset = 0.75f; 
+        private float panelFrontOffset = 0.3f; 
         public void Initialize()
         {
             panelObserver.SetCurrentOperatingPanel(initialPanel);

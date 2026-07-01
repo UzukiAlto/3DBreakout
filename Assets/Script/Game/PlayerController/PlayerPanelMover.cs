@@ -13,7 +13,7 @@ namespace Game
         [SerializeField] private PanelObserver panelObserver;
         [SerializeField] private GameManager gameManager;
         private IPlayerMoveInput playerMoveInput; 
-        private float baseMoveSpeed = 0.1f;
+        private float baseMoveSpeed = 0.03f;
         void Awake()
         {
             playerMoveInput = playerMoveInputObject.GetComponent<IPlayerMoveInput>();            
