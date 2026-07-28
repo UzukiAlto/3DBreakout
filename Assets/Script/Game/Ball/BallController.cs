@@ -7,6 +7,7 @@ namespace Game
 {
     public class BallController : MonoBehaviour
     {
+        public event Action OnBallTouched;
         // OnCollisionEnterがBallオブジェクト内でしか検知できないため、イベントを通して検知
         [SerializeField] private GameObject ballObject;
         [SerializeField] private GameManager gameManager;
@@ -58,7 +59,7 @@ namespace Game
         // ballが何かに当たったときの処理を発火
         public void HandleBallCollision(Collision collision)
         {
-            
+            OnBallTouched?.Invoke();
             if (collision.gameObject.TryGetComponent(out IBallTarget target))
             {
                 target.OnHitBallObject(ballRB, baseSpeed); 

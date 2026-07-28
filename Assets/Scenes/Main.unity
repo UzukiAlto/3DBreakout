@@ -3011,6 +3011,7 @@ MonoBehaviour:
   gameManager: {fileID: 911674053}
   blockGenerator: {fileID: 2099589902}
   blockRemover: {fileID: 1800582377}
+  ballController: {fileID: 1803442645}
   currentBlockList: []
 --- !u!1 &836340253
 GameObject:
