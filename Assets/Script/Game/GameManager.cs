@@ -15,6 +15,8 @@ namespace Game
 
         public event Action OnGameStarted;
         public event Action OnGameReady;
+        public event Action OnAllBlocksRemoved;
+
         private void Awake()
         {
             systemInput = systemInputObject.GetComponent<ISystemInput>();  
@@ -36,6 +38,11 @@ namespace Game
         public void PrepareGame()
         {
             OnGameReady?.Invoke();
+        }
+
+        public void RaiseAllBlocksRemoved()
+        {
+            OnAllBlocksRemoved?.Invoke();
         }
 
         public void StartGame(bool isPressed)
