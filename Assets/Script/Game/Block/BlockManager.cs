@@ -13,6 +13,7 @@ namespace Game
         [SerializeField] private BallController ballController;
         // 中身の確認のためにSerializeFieldで公開
         [SerializeField] private List<GameObject> currentBlockList = new List<GameObject>();
+        private GameObject blockParent;
         private int ballTargetLayer;
         private int blockTempLayer;
 
@@ -37,9 +38,9 @@ namespace Game
 
         public void GenerateBlock()
         {
-            GameObject nextBlock = blockGenerator.GenerateBlock();
+            blockParent = blockGenerator.GenerateBlock();
 
-            foreach (Transform childrenBlockTransform in nextBlock.transform)
+            foreach (Transform childrenBlockTransform in blockParent.transform)
             {
                 currentBlockList.Add(childrenBlockTransform.gameObject);
             }
@@ -50,6 +51,7 @@ namespace Game
             blockRemover.RemoveBlock(removeTargetBlock, currentBlockList);
             if (currentBlockList.Count == 0)
             {
+                Destroy(blockParent);
                 gameManager.RaiseAllBlocksRemoved();
             }
         }
