@@ -10,12 +10,14 @@ namespace Game
     {        
         public float gameSpeed { get; private set; } = 1f;
         [SerializeField] private GameObject systemInputObject; 
+        [SerializeField] private LifeManager lifeManager;
         private ISystemInput systemInput;
         public bool isGamePlaying { get; private set; } = false;
 
         public event Action OnGameStarted;
         public event Action OnGameReady;
         public event Action OnAllBlocksRemoved;
+        public event Action OnGameFailed;
 
         private void Awake()
         {
@@ -54,6 +56,12 @@ namespace Game
             Debug.Log("Start Game");
             isGamePlaying = true;
             OnGameStarted?.Invoke();
+        }
+
+        public void FailGame()
+        {
+            bool isGameOver = lifeManager.decreaseLife();
+            OnGameFailed?.Invoke();
         }
     }
 }
