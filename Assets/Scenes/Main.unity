@@ -1372,6 +1372,7 @@ MonoBehaviour:
   rotateCenterObj: {fileID: 1122708028}
   configData: {fileID: 983244555}
   playerCameraInputObject: {fileID: 2141258468}
+  gameManager: {fileID: 911674053}
 --- !u!1 &242982328
 GameObject:
   m_ObjectHideFlags: 0
@@ -5878,6 +5879,7 @@ MonoBehaviour:
   selectingMaterial: {fileID: 2100000, guid: 82336afd2a5058d48820c27e0b431882, type: 2}
   defaultMaterial: {fileID: 2100000, guid: d803ee494d22bbd4589b060ac6c2767f, type: 2}
   panelObserver: {fileID: 1937645134}
+  gameManager: {fileID: 911674053}
 --- !u!224 &1634665513
 RectTransform:
   m_ObjectHideFlags: 0

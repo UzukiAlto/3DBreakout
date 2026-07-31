@@ -37,6 +37,10 @@ namespace Game
 
         private void MovePlayerPanel(Vector2 moveDelta)
         {
+            if (!gameScreen.canOperate)
+            {
+                return;
+            }
             if (panelObserver.currentOperatingPanel == null)
             {
                 Debug.Log("No panel to move on");
