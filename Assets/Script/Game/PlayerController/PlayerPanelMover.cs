@@ -49,7 +49,7 @@ namespace Game
 
             Vector3 inputDirection = moveDelta.x * gameScreen.screenCamera.transform.right + moveDelta.y * gameScreen.screenCamera.transform.up; 
             // 移動速度の調整
-            inputDirection *= baseMoveSpeed * gameManager.gameSpeed; 
+            inputDirection *= baseMoveSpeed * GameState.gameSpeed; 
 
             PlayerPanelArea currentPanelArea = panelObserver.currentOperatingPanel.GetComponent<PlayerPanelArea>();
             // パネルに対して平行に移動させる

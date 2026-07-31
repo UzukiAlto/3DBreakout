@@ -16,7 +16,7 @@ namespace Game
             Vector3 reflectVec = rigidbody.transform.position - transform.position;
             reflectVec.Normalize();            
             rigidbody.velocity = Vector3.zero;
-            rigidbody.AddForce(speed * reflectVec * gameManager.gameSpeed);
+            rigidbody.AddForce(speed * reflectVec * GameState.gameSpeed);
         }
 
         public void OnHitBallRaycast(Material material, float alpha)
