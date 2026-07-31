@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using MainSystem;
 using TMPro;
 
@@ -17,12 +18,16 @@ namespace Game
         public void OnEnable()
         {
             gameManager.OnGameStarted += OnGameStarted;
+            gameManager.OnGameStarted += UpdateText;
             gameManager.OnGameFailed += OnGameFailed;
+            gameManager.OnAllBlocksRemoved += UpdateText;
         }
         public void OnDisable()
         {
             gameManager.OnGameStarted -= OnGameStarted;
+            gameManager.OnGameStarted -= UpdateText;
             gameManager.OnGameFailed -= OnGameFailed;
+            gameManager.OnAllBlocksRemoved -= UpdateText;
         }
         public void Initialize()
         {
@@ -44,6 +49,12 @@ namespace Game
             startText.enabled = true;
             stageText.enabled = false;
             gameSpeedText.enabled = false;
+        }
+        private void UpdateText()
+        {
+            stageText.text = $"Stage: {GameState.currentStage}";
+            float roundedGameSpeed = (float)Math.Round(GameState.gameSpeed, 2, MidpointRounding.AwayFromZero);
+            gameSpeedText.text = $"Game Speed: x{roundedGameSpeed.ToString("F2")}";
         }
 
     }

@@ -46,6 +46,7 @@ namespace MainSystem
             base.Show();
             screenCanvas.SetActive(true);
             SetEnableOperation(false);
+            GameState.Initialize();
             foreach (var item in initializableList)
             {
                 item.GetComponent<IInitializable>()?.Initialize();

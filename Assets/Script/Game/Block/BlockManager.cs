@@ -58,6 +58,12 @@ namespace Game
 
         public void HandleAllBlocksRemoved()
         {
+            blockRemover.ClearAllBlocks(currentBlockList);
+            if (blockParent != null)
+            {
+                Destroy(blockParent);
+            }
+            
             GenerateBlock();
             
             // ブロックを再生成するとすぐにボールに当たるため、ボールが他の何かに当たるまでLayerを変更して当たり判定を無効化する

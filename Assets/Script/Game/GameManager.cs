@@ -8,7 +8,6 @@ namespace Game
 {
     public class GameManager : MonoBehaviour, IInitializable
     {        
-        public float gameSpeed { get; private set; } = 1f;
         [SerializeField] private GameObject systemInputObject; 
         [SerializeField] private LifeManager lifeManager;
         private ISystemInput systemInput;
@@ -20,6 +19,16 @@ namespace Game
         public event Action OnGameFailed;
         public event Action OnGameOver;
 
+        void Update()
+        {
+            // デバッグ用に全ブロック削除を強制的に呼び出す
+            if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.N))
+            {
+                RaiseAllBlocksRemoved();
+            }
+        }
+
+
         private void Awake()
         {
             systemInput = systemInputObject.GetComponent<ISystemInput>();  
@@ -28,14 +37,17 @@ namespace Game
         private void OnEnable()
         {
             systemInput.OnSubmit += StartGame;
+            OnAllBlocksRemoved += GameState.NextStage;
+            OnGameReady += GameState.Initialize;
         }
         private void OnDisable()
         {
             systemInput.OnSubmit -= StartGame;
+            OnAllBlocksRemoved -= GameState.NextStage;
+            OnGameReady -= GameState.Initialize;
         }
         public void Initialize()
         {
-            gameSpeed = 1f;
         }
 
         public void PrepareGame()

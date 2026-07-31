@@ -53,7 +53,7 @@ namespace Game
             moveVec.z = 0f;
 
             transform.rotation = Quaternion.Euler(moveVec);
-            ballRB.AddForce(baseSpeed * transform.forward * gameManager.gameSpeed);
+            ballRB.AddForce(baseSpeed * transform.forward * GameState.gameSpeed);
 
             // forecastBall.SetActive(true);
         }
