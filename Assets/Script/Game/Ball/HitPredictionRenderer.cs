@@ -14,6 +14,19 @@ namespace Game
         [SerializeField] private GameObject predictionBall;
         [SerializeField] private Material predictionBallMaterial;
         [SerializeField] private LayerMask ballTargetLayerMask;
+
+        private void OnEnable()
+        {
+            gameManager.OnGameStarted += EnablePredictionBall;
+            gameManager.OnGameFailed += DisablePredictionBall;
+            gameManager.OnGameOver += DisablePredictionBall;
+        }
+        private void OnDisable()
+        {
+            gameManager.OnGameStarted -= EnablePredictionBall;
+            gameManager.OnGameFailed -= DisablePredictionBall;
+            gameManager.OnGameOver -= DisablePredictionBall;
+        }
         void Update()
         {
             RaycastHit hit;
@@ -50,6 +63,14 @@ namespace Game
                 target.OnHitBallRaycast(predictionBallMaterial, ballAlpha);
                 Debug.Log("IBallTarget is found: " + target);
             }
+        }
+        private void EnablePredictionBall()
+        {
+            predictionBall.SetActive(true);
+        }
+        private void DisablePredictionBall()
+        {
+            predictionBall.SetActive(false);
         }
     }
 }

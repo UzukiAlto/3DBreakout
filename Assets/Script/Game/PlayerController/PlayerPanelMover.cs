@@ -13,6 +13,8 @@ namespace Game
         [SerializeField] private PanelObserver panelObserver;
         [SerializeField] private GameManager gameManager;
         private IPlayerMoveInput playerMoveInput; 
+        private Vector3 initialPlayerPosition = new Vector3(0f, 0f, -4.7f);
+        private Quaternion initialPlayerRotation = Quaternion.identity;
         private float baseMoveSpeed = 0.03f;
         void Awake()
         {
@@ -20,9 +22,16 @@ namespace Game
         }
         private void OnEnable() {
             playerMoveInput.OnMoving += MovePlayerPanel;
+            gameManager.OnGameFailed += InitializePlayerPosition;
         }
         private void OnDisable() {
             playerMoveInput.OnMoving -= MovePlayerPanel;
+            gameManager.OnGameFailed -= InitializePlayerPosition;
+        }
+        private void InitializePlayerPosition()
+        {
+            playerPanel.transform.position = initialPlayerPosition;
+            playerPanel.transform.rotation = initialPlayerRotation;
         }
 
 

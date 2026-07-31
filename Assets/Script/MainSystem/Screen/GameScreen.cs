@@ -16,17 +16,23 @@ namespace MainSystem
         [SerializeField] private List<GameObject> initializableList = new List<GameObject>();
         // gameManager.GameStartedとSetEnableOperationは引数が異なるためeventで中継
         private event Action setEnableOperationEvent;
+        private event Action setDisableOperationEvent;
         private void Awake()
         {
             setEnableOperationEvent = () => SetEnableOperation(true);
+            setDisableOperationEvent = () => SetEnableOperation(false);
         }
         private void OnEnable()
         {
             gameManager.OnGameStarted += setEnableOperationEvent;
+            gameManager.OnGameFailed += setDisableOperationEvent;
+            gameManager.OnGameOver += setDisableOperationEvent;
         }
         private void OnDisable()
         {
             gameManager.OnGameStarted -= setEnableOperationEvent;
+            gameManager.OnGameFailed -= setDisableOperationEvent;
+            gameManager.OnGameOver -= setDisableOperationEvent;
         }
         public override void Hide()
         {
