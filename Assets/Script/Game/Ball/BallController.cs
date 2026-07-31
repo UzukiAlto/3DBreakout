@@ -29,6 +29,7 @@ namespace Game
         {
             gameManager.OnGameReady += InitializeBall;
             gameManager.OnGameStarted += LaunchBall;
+            gameManager.OnGameFailed += InitializeBall;
             ball.OnCollided += HandleBallCollision;
         }
 
@@ -36,6 +37,7 @@ namespace Game
         {
             gameManager.OnGameReady -= InitializeBall;
             gameManager.OnGameStarted -= LaunchBall;
+            gameManager.OnGameFailed -= InitializeBall;
             ball.OnCollided -= HandleBallCollision;
         }
 

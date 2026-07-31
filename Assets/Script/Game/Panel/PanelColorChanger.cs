@@ -15,6 +15,7 @@ namespace Game
         [SerializeField] private Material defaultMaterial;
 
         [SerializeField] private PanelObserver panelObserver;
+        [SerializeField] private GameManager gameManager;
 
         public void Initialize()
         {
@@ -29,11 +30,13 @@ namespace Game
         {
             panelObserver.OnSelectedPanelChanged += ChangeSelectingPanelColor;
             panelObserver.OnOperatingPanelChanged += ChangeOperatingPanelColor;
+            gameManager.OnGameFailed += Initialize;
         }
         void OnDisable()
         {
             panelObserver.OnSelectedPanelChanged -= ChangeSelectingPanelColor;
             panelObserver.OnOperatingPanelChanged -= ChangeOperatingPanelColor;
+            gameManager.OnGameFailed -= Initialize;
         }
 
         public void ChangeSelectingPanelColor(GameObject selectObj)

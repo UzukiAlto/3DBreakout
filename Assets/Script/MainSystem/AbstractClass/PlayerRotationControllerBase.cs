@@ -12,7 +12,7 @@ namespace MainSystem
     {
         [SerializeField] private ScreenBase currentScreen;
         [SerializeField] protected GameObject playerCameraObj;
-        [SerializeField] private GameObject rotateCenterObj;
+        [SerializeField] protected GameObject rotateCenterObj;
         [SerializeField] private ConfigData configData;
         public void Rotate(Vector2 rotationAngle)
         {

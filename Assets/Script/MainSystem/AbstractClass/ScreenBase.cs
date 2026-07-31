@@ -29,6 +29,7 @@ namespace MainSystem
         public void SetEnableOperation(bool enable)
         {
             canOperate = enable;
+            Debug.Log("SetEnableOperation: " + enable + " on " + name);
         }
     }
 }

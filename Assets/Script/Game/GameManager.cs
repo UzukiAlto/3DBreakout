@@ -18,6 +18,7 @@ namespace Game
         public event Action OnGameReady;
         public event Action OnAllBlocksRemoved;
         public event Action OnGameFailed;
+        public event Action OnGameOver;
 
         private void Awake()
         {
@@ -60,8 +61,16 @@ namespace Game
 
         public void FailGame()
         {
+            isGamePlaying = false;
             bool isGameOver = lifeManager.decreaseLife();
-            OnGameFailed?.Invoke();
+            if (isGameOver)
+            {
+                OnGameOver?.Invoke();
+            }
+            else
+            {
+                OnGameFailed?.Invoke(); 
+            }
         }
     }
 }
