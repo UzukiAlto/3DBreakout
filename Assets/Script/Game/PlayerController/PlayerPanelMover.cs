@@ -22,10 +22,12 @@ namespace Game
         }
         private void OnEnable() {
             playerMoveInput.OnMoving += MovePlayerPanel;
+            gameManager.OnGameReady += InitializePlayerPosition;
             gameManager.OnGameFailed += InitializePlayerPosition;
         }
         private void OnDisable() {
             playerMoveInput.OnMoving -= MovePlayerPanel;
+            gameManager.OnGameReady -= InitializePlayerPosition;
             gameManager.OnGameFailed -= InitializePlayerPosition;
         }
         private void InitializePlayerPosition()

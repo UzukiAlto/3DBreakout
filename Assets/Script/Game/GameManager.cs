@@ -6,12 +6,13 @@ using MainSystem;
 
 namespace Game
 {
-    public class GameManager : MonoBehaviour, IInitializable
+    public class GameManager : MonoBehaviour
     {        
         [SerializeField] private GameObject systemInputObject; 
         [SerializeField] private LifeManager lifeManager;
         private ISystemInput systemInput;
         public bool isGamePlaying { get; private set; } = false;
+        private bool isGameOver = false;
 
         public event Action OnGameStarted;
         public event Action OnGameReady;
@@ -37,17 +38,16 @@ namespace Game
         private void OnEnable()
         {
             systemInput.OnSubmit += StartGame;
+            systemInput.OnRetry += RetryGame;
             OnAllBlocksRemoved += GameState.NextStage;
             OnGameReady += GameState.Initialize;
         }
         private void OnDisable()
         {
             systemInput.OnSubmit -= StartGame;
+            systemInput.OnRetry -= RetryGame;
             OnAllBlocksRemoved -= GameState.NextStage;
             OnGameReady -= GameState.Initialize;
-        }
-        public void Initialize()
-        {
         }
 
         public void PrepareGame()
@@ -74,7 +74,7 @@ namespace Game
         public void FailGame()
         {
             isGamePlaying = false;
-            bool isGameOver = lifeManager.decreaseLife();
+            isGameOver = lifeManager.decreaseLife();
             if (isGameOver)
             {
                 OnGameOver?.Invoke();
@@ -83,6 +83,16 @@ namespace Game
             {
                 OnGameFailed?.Invoke(); 
             }
+        }
+
+        public void RetryGame(bool isPressed)
+        {
+            if (!isPressed || isGamePlaying || !isGameOver)
+            {
+                return;
+            }
+            isGameOver = false;
+            PrepareGame();
         }
     }
 }

@@ -27,12 +27,14 @@ namespace MainSystem
             gameManager.OnGameStarted += setEnableOperationEvent;
             gameManager.OnGameFailed += setDisableOperationEvent;
             gameManager.OnGameOver += setDisableOperationEvent;
+            gameManager.OnGameReady += Initialize;
         }
         private void OnDisable()
         {
             gameManager.OnGameStarted -= setEnableOperationEvent;
             gameManager.OnGameFailed -= setDisableOperationEvent;
             gameManager.OnGameOver -= setDisableOperationEvent;
+            gameManager.OnGameReady -= Initialize;
         }
         public override void Hide()
         {
@@ -46,12 +48,16 @@ namespace MainSystem
             base.Show();
             screenCanvas.SetActive(true);
             SetEnableOperation(false);
+            gameManager.PrepareGame();
+        }
+
+        private void Initialize()
+        {
             GameState.Initialize();
             foreach (var item in initializableList)
             {
                 item.GetComponent<IInitializable>()?.Initialize();
             }
-            gameManager.PrepareGame();
         }
     }
 }

@@ -38,6 +38,7 @@ namespace Game
 
         public void GenerateBlock()
         {
+            blockRemover.ClearAllBlocks(currentBlockList);
             blockParent = blockGenerator.GenerateBlock();
 
             foreach (Transform childrenBlockTransform in blockParent.transform)

@@ -20,6 +20,7 @@ namespace Game
             gameManager.OnGameStarted += OnGameStarted;
             gameManager.OnGameStarted += UpdateText;
             gameManager.OnGameFailed += OnGameFailed;
+            gameManager.OnGameOver += OnGameOver;
             gameManager.OnAllBlocksRemoved += UpdateText;
         }
         public void OnDisable()
@@ -27,6 +28,7 @@ namespace Game
             gameManager.OnGameStarted -= OnGameStarted;
             gameManager.OnGameStarted -= UpdateText;
             gameManager.OnGameFailed -= OnGameFailed;
+            gameManager.OnGameOver -= OnGameOver;
             gameManager.OnAllBlocksRemoved -= UpdateText;
         }
         public void Initialize()
@@ -42,6 +44,7 @@ namespace Game
             startText.enabled = false;
             stageText.enabled = true;
             gameSpeedText.enabled = true;
+            retryText.enabled = false;
         }
 
         private void OnGameFailed()
@@ -49,6 +52,13 @@ namespace Game
             startText.enabled = true;
             stageText.enabled = false;
             gameSpeedText.enabled = false;
+        }
+
+        private void OnGameOver()
+        {
+            stageText.enabled = false;
+            gameSpeedText.enabled = false;
+            retryText.enabled = true;
         }
         private void UpdateText()
         {
