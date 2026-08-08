@@ -1,0 +1,12 @@
+using UnityEngine;
+
+namespace #NAMESPACE#
+{
+    public class #SCRIPTNAME# : MonoBehaviour
+    {
+        private void Start()
+        {
+
+        }
+    }
+}
