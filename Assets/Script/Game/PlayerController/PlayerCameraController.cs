@@ -9,13 +9,8 @@ namespace Game
     /// <summary>
     /// プレイヤーのカメラを制御するクラス
     /// </summary>
-    public class PlayerCameraController : PlayerRotationControllerBase, IInitializable
+    public class PlayerCameraController : PlayerRotationControllerBase
     {
-        // ModeSelectのPlayerCameraControllerをコピペ中
-        public void Initialize()
-        {
-            
-        }
         // インターフェースの参照元オブジェクト
         [SerializeField] private GameObject playerCameraInputObject;
         [SerializeField] private GameManager gameManager;
@@ -36,6 +31,7 @@ namespace Game
             playerCameraInput.OnCameraMoveStart += OnCameraMoveStart;
             playerCameraInput.OnCameraMovingDelta += OnCameraMovingDelta;
             playerCameraInput.OnCameraMoveEnd += OnCameraMoveEnd;
+            gameManager.OnGameReady += MoveCameraToDefaultPosition;
             gameManager.OnGameFailed += MoveCameraToDefaultPosition;
         }
 
@@ -50,6 +46,7 @@ namespace Game
             }
             if (gameManager != null)
             {
+                gameManager.OnGameReady -= MoveCameraToDefaultPosition;
                 gameManager.OnGameFailed -= MoveCameraToDefaultPosition;
             }
         }

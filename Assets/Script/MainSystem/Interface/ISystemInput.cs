@@ -8,5 +8,6 @@ namespace MainSystem
     public interface ISystemInput
     {
         event Action<bool> OnSubmit;
+        event Action<bool> OnRetry;
     }
 }

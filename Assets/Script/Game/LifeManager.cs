@@ -34,17 +34,15 @@ namespace Game
 
         public bool decreaseLife()
         {
-            bool isGameOver = false;
             currentLives--;
-            if (currentLives <= 0)
+            if (currentLives < 0)
             {
-                isGameOver = true;
-            } 
-            else
+                return true;
+            } else
             {
                 lifeObjects[currentLives].SetActive(false);
+                return false;
             }
-            return isGameOver;
         }
 
     }

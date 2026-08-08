@@ -30,6 +30,7 @@ namespace Game
             gameManager.OnGameReady += InitializeBall;
             gameManager.OnGameStarted += LaunchBall;
             gameManager.OnGameFailed += InitializeBall;
+            gameManager.OnGameOver += StopBall;
             ball.OnCollided += HandleBallCollision;
         }
 
@@ -38,6 +39,7 @@ namespace Game
             gameManager.OnGameReady -= InitializeBall;
             gameManager.OnGameStarted -= LaunchBall;
             gameManager.OnGameFailed -= InitializeBall;
+            gameManager.OnGameOver -= StopBall;
             ball.OnCollided -= HandleBallCollision;
         }
 
@@ -85,6 +87,10 @@ namespace Game
             {
                 ballObject.transform.rotation = Quaternion.LookRotation(diff); 
             }
+        }
+        private void StopBall()
+        {
+            ballRB.velocity = Vector3.zero;
         }
     }
 }
