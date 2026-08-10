@@ -13,6 +13,7 @@ namespace Game
         private ISystemInput systemInput;
         public bool isGamePlaying { get; private set; } = false;
         private bool isGameOver = false;
+        private bool isGameReady = false;
 
         public event Action OnGameStarted;
         public event Action OnGameReady;
@@ -53,6 +54,7 @@ namespace Game
         public void PrepareGame()
         {
             OnGameReady?.Invoke();
+            isGameReady = true;
         }
 
         public void RaiseAllBlocksRemoved()
@@ -62,12 +64,13 @@ namespace Game
 
         public void StartGame(bool isPressed)
         {
-            if (!isPressed || isGamePlaying)
+            if (!isPressed || isGamePlaying || !isGameReady)
             {
                 return;
             }
             Debug.Log("Start Game");
             isGamePlaying = true;
+            isGameReady = false;
             OnGameStarted?.Invoke();
         }
 
@@ -78,10 +81,12 @@ namespace Game
             if (isGameOver)
             {
                 OnGameOver?.Invoke();
+                isGameReady = false;
             }
             else
             {
                 OnGameFailed?.Invoke(); 
+                isGameReady = true;
             }
         }
 
