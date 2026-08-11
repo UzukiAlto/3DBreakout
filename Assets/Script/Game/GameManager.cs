@@ -9,20 +9,26 @@ namespace Game
     public class GameManager : MonoBehaviour
     {        
         [SerializeField] private GameObject systemInputObject; 
+        [SerializeField] private GameObject playerMoveInputObject;
         [SerializeField] private LifeManager lifeManager;
         private ISystemInput systemInput;
+        private IPlayerMoveInput playerMoveInput;
         public bool isGamePlaying { get; private set; } = false;
         private bool isGameOver = false;
         private bool isGameReady = false;
+        private bool wasPlayingBeforePause = false; // ゲームが一時停止される前にプレイ中だったかどうか
 
         public event Action OnGameStarted;
         public event Action OnGameReady;
         public event Action OnAllBlocksRemoved;
         public event Action OnGameFailed;
         public event Action OnGameOver;
+        public event Action OnGamePaused;
+        public event Action<bool> OnGameUnpaused; // ポーズ前にプレイ中ならtrue、そうでなければfalseを渡す
 
         void Update()
         {
+            // debug
             // デバッグ用に全ブロック削除を強制的に呼び出す
             if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.N))
             {
@@ -34,6 +40,7 @@ namespace Game
         private void Awake()
         {
             systemInput = systemInputObject.GetComponent<ISystemInput>();  
+            playerMoveInput = playerMoveInputObject.GetComponent<IPlayerMoveInput>();
         }
 
         private void OnEnable()
@@ -98,6 +105,38 @@ namespace Game
             }
             isGameOver = false;
             PrepareGame();
+        }
+
+        public void PauseGame()
+        {
+            if (isGamePlaying)
+            {
+                wasPlayingBeforePause = true;
+                isGamePlaying = false;
+            }
+            else
+            {
+                wasPlayingBeforePause = false;
+            }
+            systemInput.ChangeInputEnableState(SystemInputType.Submit, false);
+                systemInput.ChangeInputEnableState(SystemInputType.Retry, false);
+                playerMoveInput.ChangeInputEnableState(false);
+                OnGamePaused?.Invoke();
+            }
+            public void UnpauseGame()
+        {
+            if (wasPlayingBeforePause)
+            {
+                isGamePlaying = true;
+            }
+            else
+            {
+                isGamePlaying = false;
+            }
+            systemInput.ChangeInputEnableState(SystemInputType.Submit, true);
+                systemInput.ChangeInputEnableState(SystemInputType.Retry, true);
+            playerMoveInput.ChangeInputEnableState(true);
+            OnGameUnpaused?.Invoke(wasPlayingBeforePause);
         }
     }
 }

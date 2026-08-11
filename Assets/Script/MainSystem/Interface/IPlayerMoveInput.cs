@@ -9,5 +9,6 @@ namespace MainSystem
         event Action<Vector2> OnMoving;
         event Action<Vector2> OnMoveEnd;
         event Action<bool> OnChangePanel;
+        void ChangeInputEnableState(bool isEnabled);
     }
 }

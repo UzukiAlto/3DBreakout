@@ -17,6 +17,9 @@ namespace Game
         [SerializeField] float baseSpeed = 3f;
         private Rigidbody ballRB; 
         private Vector3 initialPos = new Vector3(0f, 0f, -3.25f);
+        private Vector3 latestPos; // ボールを進行方向に向けるときに、前フレームの位置を保存
+        private Vector3 diff; // ボールの進行方向を計算するために、前フレームの位置との差分を計算
+        private Vector3 lastBallVelocity; // ゲームが一時停止されたときのボールの速度を保存
 
 
         private void Awake() 
@@ -30,7 +33,9 @@ namespace Game
             gameManager.OnGameReady += InitializeBall;
             gameManager.OnGameStarted += LaunchBall;
             gameManager.OnGameFailed += InitializeBall;
-            gameManager.OnGameOver += StopBall;
+            gameManager.OnGameOver += PauseBall;
+            gameManager.OnGamePaused += PauseBall;
+            gameManager.OnGameUnpaused += UnpauseBall;
             ball.OnCollided += HandleBallCollision;
         }
 
@@ -39,7 +44,9 @@ namespace Game
             gameManager.OnGameReady -= InitializeBall;
             gameManager.OnGameStarted -= LaunchBall;
             gameManager.OnGameFailed -= InitializeBall;
-            gameManager.OnGameOver -= StopBall;
+            gameManager.OnGameOver -= PauseBall;
+            gameManager.OnGamePaused -= PauseBall;
+            gameManager.OnGameUnpaused -= UnpauseBall;
             ball.OnCollided -= HandleBallCollision;
         }
 
@@ -69,8 +76,6 @@ namespace Game
                 target.OnHitBallObject(ballRB, baseSpeed); 
             }
         }
-        private Vector3 latestPos;
-        private Vector3 diff;
         void Update()
         {
             LookForward();
@@ -88,9 +93,15 @@ namespace Game
                 ballObject.transform.rotation = Quaternion.LookRotation(diff); 
             }
         }
-        private void StopBall()
+
+        private void PauseBall()
         {
+            lastBallVelocity = ballRB.velocity;
             ballRB.velocity = Vector3.zero;
+        }
+        private void UnpauseBall(bool wasPlayingBeforePause)
+        {
+            ballRB.velocity = lastBallVelocity;
         }
     }
 }

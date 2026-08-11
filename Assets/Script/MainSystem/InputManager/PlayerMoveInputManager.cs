@@ -24,9 +24,20 @@ namespace MainSystem
         {
             inputActions = new PlayerInputActions();
         }
+        public void ChangeInputEnableState(bool isEnabled)
+        {
+            if (isEnabled)
+            {
+                inputActions.Player.Enable();
+            }
+            else
+            {
+                inputActions.Player.Disable();
+            }
+        }
         private void OnEnable()
         {
-            inputActions.Enable();
+            inputActions.Player.Enable();
 
             inputActions.Player.Move.performed += HandleMovePerformed;
             inputActions.Player.Move.canceled += HandleMoveCanceled;
@@ -42,7 +53,7 @@ namespace MainSystem
             inputActions.Player.ChangePanel.performed -= HandleChangePanel;
             inputActions.Player.ChangePanel.canceled -= HandleChangePanel;
 
-            inputActions.Disable();
+            inputActions.Player.Disable();
         }
 
         private void Update()

@@ -28,6 +28,8 @@ namespace MainSystem
             gameManager.OnGameFailed += setDisableOperationEvent;
             gameManager.OnGameOver += setDisableOperationEvent;
             gameManager.OnGameReady += Initialize;
+            gameManager.OnGamePaused += setDisableOperationEvent;
+            gameManager.OnGameUnpaused += SetEnableOperation; // ポーズ前にプレイ中だったなら操作可能にする
         }
         private void OnDisable()
         {
@@ -35,6 +37,8 @@ namespace MainSystem
             gameManager.OnGameFailed -= setDisableOperationEvent;
             gameManager.OnGameOver -= setDisableOperationEvent;
             gameManager.OnGameReady -= Initialize;
+            gameManager.OnGamePaused -= setDisableOperationEvent;
+            gameManager.OnGameUnpaused -= SetEnableOperation;
         }
         public override void Hide()
         {
