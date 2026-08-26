@@ -63,6 +63,7 @@ namespace MainSystem
             previousScreen.SetEnableOperation(false);
             Debug.Log("ChangeScreen Start: " + previousScreen.name + " -> " + currentScreen.name);
             
+            currentScreen.cameraObject.SetActive(false);
             currentScreen.Show();
 
             Vector3 endPos = currentScreen.cameraObject.transform.position - previousCubeObj.transform.position;
@@ -77,7 +78,7 @@ namespace MainSystem
                 x =>
                 {
                     previousScreen.cameraObject.transform.position = Vector3.Slerp(startPos, endPos, x) + previousCubeObj.transform.position;
-                    previousScreen.cameraObject.transform.rotation = Quaternion.Lerp(startRotate, endRotate, x);
+                    previousScreen.cameraObject.transform.rotation = Quaternion.Slerp(startRotate, endRotate, x);
                 },
                 1f,
                 changeSecond

@@ -9,10 +9,12 @@ namespace Game
 {
     public class MenuManager : MonoBehaviour, IInitializable
     {
+        [SerializeField] private ScreenChanger screenChanger;
         [SerializeField] private GameManager gameManager;
         [SerializeField] private GameObject pausePanel;
-        [SerializeField] private Image pausePanelBackground;
+        [SerializeField] private GameObject centerCubeObj;
         [SerializeField] private GameObject systemInputObject;
+        [SerializeField] private Image pausePanelBackground;
         private ISystemInput systemInput;
         [SerializeField] private Image menuImage;
         [SerializeField] private Sprite startSprite;
@@ -20,7 +22,7 @@ namespace Game
         [SerializeField] private MenuCube menuCube;
         private bool isPaused = false;
         private float pausePanelFadeTime = 0.3f; // フェードイン・フェードアウトの時間
-        private float pausePanelAlpha = 0.6f; // フェードイン・フェードアウトの透明度
+        private float pausePanelAlpha = 0.85f; // フェードイン・フェードアウトの透明度
         private void Awake()
         {
             systemInput = systemInputObject.GetComponent<ISystemInput>();
@@ -98,5 +100,12 @@ namespace Game
 
             menuImage.sprite = pauseSprite;
         }
+
+        public void ReturnToModeSelect()
+        {
+            
+            gameManager.UnpauseGame();
+            screenChanger.ChangeScreen(ScreenEnum.ModeSelect, centerCubeObj);
+        } 
     }
 }

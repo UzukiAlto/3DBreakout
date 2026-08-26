@@ -17,8 +17,9 @@ namespace MainSystem
         // gameManager.GameStartedとSetEnableOperationは引数が異なるためeventで中継
         private event Action setEnableOperationEvent;
         private event Action setDisableOperationEvent;
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             setEnableOperationEvent = () => SetEnableOperation(true);
             setDisableOperationEvent = () => SetEnableOperation(false);
         }
