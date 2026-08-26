@@ -14,7 +14,7 @@ namespace Game
         [SerializeField] private GameObject pausePanel;
         [SerializeField] private GameObject centerCubeObj;
         [SerializeField] private GameObject systemInputObject;
-        [SerializeField] private Image pausePanelBackground;
+        private CanvasGroup pauseCanvasGroup;
         private ISystemInput systemInput;
         [SerializeField] private Image menuImage;
         [SerializeField] private Sprite startSprite;
@@ -26,6 +26,7 @@ namespace Game
         private void Awake()
         {
             systemInput = systemInputObject.GetComponent<ISystemInput>();
+            pauseCanvasGroup = pausePanel.GetComponent<CanvasGroup>();
         }
         private void OnEnable()
         {
@@ -83,9 +84,9 @@ namespace Game
             menuCube.PauseRotation();
             isPaused = true;
 
-            pausePanelBackground.color = new Color(pausePanelBackground.color.r, pausePanelBackground.color.g, pausePanelBackground.color.b, 0f);
+            pauseCanvasGroup.alpha = 0f;
             pausePanel.SetActive(true);
-            pausePanelBackground.DOFade(pausePanelAlpha, pausePanelFadeTime).SetEase(Ease.InOutQuad);
+            pauseCanvasGroup.DOFade(pausePanelAlpha, pausePanelFadeTime).SetEase(Ease.InOutQuad);
 
             menuImage.sprite = startSprite;
         }
@@ -94,7 +95,7 @@ namespace Game
             menuCube.PlayRotation();
             isPaused = false;
             
-            pausePanelBackground.DOFade(0f, pausePanelFadeTime)
+            pauseCanvasGroup.DOFade(0f, pausePanelFadeTime)
                                 .SetEase(Ease.InOutQuad)
                                 .OnComplete(() => pausePanel.SetActive(false));
 
