@@ -9,7 +9,11 @@ namespace MainSystem
         [SerializeField] private ScreenBase modeSelectScreen;
         [SerializeField] private ScreenBase gameScreen;
         private ScreenBase previousScreen;
-        private ScreenBase currentScreen;
+        // CurrentScreen.currentを短く書くためにラッパープロパティを作成
+        private ScreenBase currentScreen {
+            get => CurrentScreen.current;
+            set => CurrentScreen.current = value;
+        }
         private float changeSecond = 1f;
         private Dictionary<ScreenEnum, ScreenBase> screenDict = new Dictionary<ScreenEnum, ScreenBase>();
         private void Start()
@@ -18,6 +22,11 @@ namespace MainSystem
                 {ScreenEnum.ModeSelect, modeSelectScreen},
                 {ScreenEnum.Game, gameScreen},
             };
+
+            foreach (ScreenBase screen in screenDict.Values)
+            {
+                screen.Hide();
+            }
 
             // debug
             currentScreen = modeSelectScreen;
