@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MainSystem;
+using UnityEngine.PlayerLoop;
 
 namespace Game
 {
@@ -57,10 +58,20 @@ namespace Game
             OnAllBlocksRemoved -= GameState.NextStage;
             OnGameReady -= GameState.Initialize;
         }
+        private void InitializeGameFlags()
+        {
+            
+            isGamePlaying = false;
+            isGameOver = false;
+            isGameReady = false;
+            wasPlayingBeforePause = false;
+        }
 
         public void PrepareGame()
         {
             OnGameReady?.Invoke();
+            InitializeGameFlags();
+
             isGameReady = true;
         }
 
@@ -119,11 +130,11 @@ namespace Game
                 wasPlayingBeforePause = false;
             }
             systemInput.ChangeInputEnableState(SystemInputType.Submit, false);
-                systemInput.ChangeInputEnableState(SystemInputType.Retry, false);
-                playerMoveInput.ChangeInputEnableState(false);
-                OnGamePaused?.Invoke();
-            }
-            public void UnpauseGame()
+            systemInput.ChangeInputEnableState(SystemInputType.Retry, false);
+            playerMoveInput.ChangeInputEnableState(false);
+            OnGamePaused?.Invoke();
+        }
+        public void UnpauseGame()
         {
             if (wasPlayingBeforePause)
             {
@@ -134,9 +145,15 @@ namespace Game
                 isGamePlaying = false;
             }
             systemInput.ChangeInputEnableState(SystemInputType.Submit, true);
-                systemInput.ChangeInputEnableState(SystemInputType.Retry, true);
+            systemInput.ChangeInputEnableState(SystemInputType.Retry, true);
             playerMoveInput.ChangeInputEnableState(true);
             OnGameUnpaused?.Invoke(wasPlayingBeforePause);
+        }
+        public void ReturnToModeSelect()
+        {
+            UnpauseGame();
+            OnGameReady?.Invoke();
+            InitializeGameFlags();
         }
     }
 }

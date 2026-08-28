@@ -44,6 +44,7 @@ namespace MainSystem
         public override void Hide()
         {
             base.Hide();
+            Initialize();
             screenCanvas.SetActive(false);
             SetEnableOperation(false);
         }

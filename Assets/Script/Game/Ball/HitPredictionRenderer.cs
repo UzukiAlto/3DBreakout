@@ -17,12 +17,14 @@ namespace Game
 
         private void OnEnable()
         {
+            gameManager.OnGameReady += DisablePredictionBall;
             gameManager.OnGameStarted += EnablePredictionBall;
             gameManager.OnGameFailed += DisablePredictionBall;
             gameManager.OnGameOver += DisablePredictionBall;
         }
         private void OnDisable()
         {
+            gameManager.OnGameReady -= DisablePredictionBall;
             gameManager.OnGameStarted -= EnablePredictionBall;
             gameManager.OnGameFailed -= DisablePredictionBall;
             gameManager.OnGameOver -= DisablePredictionBall;

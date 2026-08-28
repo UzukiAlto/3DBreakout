@@ -105,7 +105,7 @@ namespace Game
         public void ReturnToModeSelect()
         {
             
-            gameManager.UnpauseGame();
+            gameManager.ReturnToModeSelect();
             screenChanger.ChangeScreen(ScreenEnum.ModeSelect, centerCubeObj);
         } 
     }
