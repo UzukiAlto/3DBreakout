@@ -26,20 +26,14 @@ namespace Game
                 return;
             }
 
-            if (playerRaycastHandler.hitObject.TryGetComponent(out PlayerPanelArea newPanel))
+            if (playerRaycastHandler.hitObject.TryGetComponent(out PlayerPanelArea newPanel) || currentSelectedPanel != newPanel.gameObject)
             {
-                if (currentSelectedPanel != newPanel.gameObject)
-                {
-                    currentSelectedPanel = newPanel.gameObject;
-                    OnSelectedPanelChanged?.Invoke(currentSelectedPanel);
-                }
-            } else
+                currentSelectedPanel = newPanel.gameObject;
+                OnSelectedPanelChanged?.Invoke(currentSelectedPanel);
+            } else if(currentSelectedPanel != null)
             {
-                if (currentSelectedPanel != null)
-                {
-                    currentSelectedPanel = null;
-                    OnSelectedPanelChanged?.Invoke(null);
-                }
+                currentSelectedPanel = null;
+                OnSelectedPanelChanged?.Invoke(null);
             }
         }
 
