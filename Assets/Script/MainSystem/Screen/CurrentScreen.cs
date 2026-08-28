@@ -6,6 +6,6 @@ namespace MainSystem
 {
     public static class CurrentScreen
     {
-        public static ScreenBase currentScreen{ get; set; }
+        public static ScreenBase current{ get; set; }
     }
 }

@@ -17,8 +17,9 @@ namespace MainSystem
         // gameManager.GameStartedとSetEnableOperationは引数が異なるためeventで中継
         private event Action setEnableOperationEvent;
         private event Action setDisableOperationEvent;
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             setEnableOperationEvent = () => SetEnableOperation(true);
             setDisableOperationEvent = () => SetEnableOperation(false);
         }
@@ -28,6 +29,8 @@ namespace MainSystem
             gameManager.OnGameFailed += setDisableOperationEvent;
             gameManager.OnGameOver += setDisableOperationEvent;
             gameManager.OnGameReady += Initialize;
+            gameManager.OnGamePaused += setDisableOperationEvent;
+            gameManager.OnGameUnpaused += SetEnableOperation; // ポーズ前にプレイ中だったなら操作可能にする
         }
         private void OnDisable()
         {
@@ -35,10 +38,13 @@ namespace MainSystem
             gameManager.OnGameFailed -= setDisableOperationEvent;
             gameManager.OnGameOver -= setDisableOperationEvent;
             gameManager.OnGameReady -= Initialize;
+            gameManager.OnGamePaused -= setDisableOperationEvent;
+            gameManager.OnGameUnpaused -= SetEnableOperation;
         }
         public override void Hide()
         {
             base.Hide();
+            Initialize();
             screenCanvas.SetActive(false);
             SetEnableOperation(false);
         }

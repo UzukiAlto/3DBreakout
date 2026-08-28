@@ -17,6 +17,7 @@ namespace Game
         public void Initialize()
         {
             panelObserver.SetCurrentOperatingPanel(initialPanel);
+            ChangePanel();
         }
         private void Awake()
         {
@@ -25,16 +26,24 @@ namespace Game
 
         private void OnEnable()
         {
-            playerMoveInput.OnChangePanel += ChangePanel;
+            playerMoveInput.OnChangePanel += OnChangePanel;
         }
         private void OnDisable()
         {
-            playerMoveInput.OnChangePanel -= ChangePanel;
+            playerMoveInput.OnChangePanel -= OnChangePanel;
+        }
+        public void OnChangePanel(bool isPressed)
+        {
+            if (!isPressed)
+            {
+                return;
+            }
+            ChangePanel();
         }
 
-        public void ChangePanel(bool isPressed)
+        public void ChangePanel()
         {
-            if (!isPressed || panelObserver == null)
+            if (panelObserver == null)
             {
                 return;
             }
@@ -48,8 +57,7 @@ namespace Game
             Transform operatingPanelTransform = panelObserver.currentOperatingPanel.transform;
             playerPanel.transform.position = operatingPanelTransform.position + operatingPanelTransform.forward * panelFrontOffset;
             playerPanel.transform.rotation = operatingPanelTransform.rotation;
-
-
+            
         }
     }
 }
