@@ -1,0 +1,19 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Game
+{
+    public class SafetyPanelManager : MonoBehaviour
+    {
+        void Start()
+        {
+            
+        }
+
+        void Update()
+        {
+            
+        }
+    }
+}
