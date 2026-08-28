@@ -19,6 +19,7 @@ namespace Game
         private float changeSecond = 0.4f;
         // プレイヤーのカメラ入力を受け取るためのインターフェース
         private IPlayerCameraInput playerCameraInput;
+        private bool isCameraMoving = false;
         private void Awake()
         {
             playerCameraInput = playerCameraInputObject.GetComponent<IPlayerCameraInput>();
@@ -28,11 +29,13 @@ namespace Game
         private void OnEnable() 
         {
             // イベントの購読
-            playerCameraInput.OnCameraMoveStart += OnCameraMoveStart;
+            // playerCameraInput.OnCameraMoveStart += OnCameraMoveStart;
             playerCameraInput.OnCameraMovingDelta += OnCameraMovingDelta;
             playerCameraInput.OnCameraMoveEnd += OnCameraMoveEnd;
             gameManager.OnGameReady += MoveCameraToDefaultPosition;
             gameManager.OnGameFailed += MoveCameraToDefaultPosition;
+
+            isCameraMoving = false;
         }
 
         private void OnDisable() 
@@ -40,7 +43,7 @@ namespace Game
             if (playerCameraInput != null)
             {
                 // イベントの購読解除
-                playerCameraInput.OnCameraMoveStart -= OnCameraMoveStart;
+                // playerCameraInput.OnCameraMoveStart -= OnCameraMoveStart;
                 playerCameraInput.OnCameraMovingDelta -= OnCameraMovingDelta;
                 playerCameraInput.OnCameraMoveEnd -= OnCameraMoveEnd;
             }
@@ -50,7 +53,7 @@ namespace Game
                 gameManager.OnGameFailed -= MoveCameraToDefaultPosition;
             }
         }
-        private void OnCameraMoveStart(Vector2 pointerPos)
+        private void OnCameraMoveStart()
         {
             // マウスカーソルをロックして非表示にする
             Cursor.lockState = CursorLockMode.Locked;
@@ -58,11 +61,18 @@ namespace Game
         }
         private void OnCameraMovingDelta(Vector2 delta)
         {
+            // クリックを可能にするため、カメラが動き出してからマウスカーソルをロックする
+            if (!isCameraMoving)
+            {
+                OnCameraMoveStart();
+                isCameraMoving = true;
+            }
             // PlayerRotationControllerBaseのRotateメソッドを呼び出してカメラを回転させる
             Rotate(delta);
         }
         private void OnCameraMoveEnd(Vector2 pointerPos)
         {
+            isCameraMoving = false;
             // マウスカーソルをロック解除して表示する
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

@@ -45,6 +45,11 @@ namespace Game
 
         public void SetCurrentOperatingPanel(GameObject panel)
         {
+            if (panel == null)
+            {
+                Debug.Log("SetCurrentOperatingPanel: panel is null");
+                return;
+            }
             currentOperatingPanel = panel;
             OnOperatingPanelChanged?.Invoke(currentOperatingPanel);
         }

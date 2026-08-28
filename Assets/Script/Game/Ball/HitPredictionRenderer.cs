@@ -17,12 +17,14 @@ namespace Game
 
         private void OnEnable()
         {
+            gameManager.OnGameReady += DisablePredictionBall;
             gameManager.OnGameStarted += EnablePredictionBall;
             gameManager.OnGameFailed += DisablePredictionBall;
             gameManager.OnGameOver += DisablePredictionBall;
         }
         private void OnDisable()
         {
+            gameManager.OnGameReady -= DisablePredictionBall;
             gameManager.OnGameStarted -= EnablePredictionBall;
             gameManager.OnGameFailed -= DisablePredictionBall;
             gameManager.OnGameOver -= DisablePredictionBall;
@@ -43,7 +45,6 @@ namespace Game
 
         private void SetTrajectory(RaycastHit hit)
         {
-            Debug.Log("SetTrajectory called: " + hit.collider.gameObject.name);
             predictionBall.transform.position = hit.point;
             float ballAlpha;
 
@@ -61,7 +62,6 @@ namespace Game
             if (hit.collider.gameObject.TryGetComponent(out IBallTarget target))
             {
                 target.OnHitBallRaycast(predictionBallMaterial, ballAlpha);
-                Debug.Log("IBallTarget is found: " + target);
             }
         }
         private void EnablePredictionBall()

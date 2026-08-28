@@ -99,7 +99,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Move"",
@@ -261,6 +261,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""e898fdf4-fa0c-45d5-837f-fdffcfbd20b5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -285,6 +294,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Retry"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d56fd263-3a4c-4bf6-a586-b068f2656c6a"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -302,6 +322,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_System = asset.FindActionMap("System", throwIfNotFound: true);
         m_System_Submit = m_System.FindAction("Submit", throwIfNotFound: true);
         m_System_Retry = m_System.FindAction("Retry", throwIfNotFound: true);
+        m_System_Pause = m_System.FindAction("Pause", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -525,6 +546,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<ISystemActions> m_SystemActionsCallbackInterfaces = new List<ISystemActions>();
     private readonly InputAction m_System_Submit;
     private readonly InputAction m_System_Retry;
+    private readonly InputAction m_System_Pause;
     /// <summary>
     /// Provides access to input actions defined in input action map "System".
     /// </summary>
@@ -544,6 +566,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "System/Retry".
         /// </summary>
         public InputAction @Retry => m_Wrapper.m_System_Retry;
+        /// <summary>
+        /// Provides access to the underlying input action "System/Pause".
+        /// </summary>
+        public InputAction @Pause => m_Wrapper.m_System_Pause;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -576,6 +602,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Retry.started += instance.OnRetry;
             @Retry.performed += instance.OnRetry;
             @Retry.canceled += instance.OnRetry;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         /// <summary>
@@ -593,6 +622,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Retry.started -= instance.OnRetry;
             @Retry.performed -= instance.OnRetry;
             @Retry.canceled -= instance.OnRetry;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         /// <summary>
@@ -690,5 +722,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRetry(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPause(InputAction.CallbackContext context);
     }
 }

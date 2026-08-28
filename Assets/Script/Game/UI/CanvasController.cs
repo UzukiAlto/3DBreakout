@@ -7,7 +7,7 @@ namespace Game
     public class CanvasController : MonoBehaviour
     {
         [SerializeField] private GameObject mainCamera;
-        private float distance = 10f;
+        private float distance = 15f;
 
         void Update()
         {
