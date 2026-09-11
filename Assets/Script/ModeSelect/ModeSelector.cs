@@ -15,13 +15,13 @@ namespace ModeSelect
         [SerializeField] private PlayerRaycast playerRaycast;
         [SerializeField] private SelectingTextColorChanger selectingTextColorChanger;
 
-        [SerializeField] private GameObject systemInputObject; 
+        [SerializeField] private GameObject systemInputObject;
         private ISystemInput systemInput;
 
         private GameObject selectedObject;
         private void Awake()
         {
-            systemInput = systemInputObject.GetComponent<ISystemInput>();  
+            systemInput = systemInputObject.GetComponent<ISystemInput>();
         }
 
         // プレイヤーの決定入力にSelectModeを登録
@@ -55,13 +55,14 @@ namespace ModeSelect
         {
             if (!isPressed) return; // ボタンが押されたときのみ反応
             if (selectedObject == null) return; // 何も選択されていないときは終了
-            
+
             var modeSelectTarget = selectedObject.GetComponent<IModeSelectionTarget>();
             if (modeSelectTarget != null)
             {
+                AudioManager.PlaySE(AudioManager.SEType.Transition);
                 modeSelectTarget.SwitchMode();
             }
-            
+
         }
     }
 }

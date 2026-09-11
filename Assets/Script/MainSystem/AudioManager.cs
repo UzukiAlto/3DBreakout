@@ -5,7 +5,7 @@ namespace MainSystem
 {
     public class AudioManager : MonoBehaviour
     {
-        public static AudioManager Instance { get; private set; }
+        private static AudioManager Instance { get; set; }
 
         public enum BGMType
         {
@@ -57,6 +57,11 @@ namespace MainSystem
                 Destroy(gameObject);
             }
         }
+        private void Start()
+        {
+            PlayBGM(BGMType.Main);
+            Debug.Log("PlayBGM");
+        }
 
         private void InitializeDictionaries()
         {
@@ -77,7 +82,11 @@ namespace MainSystem
             }
         }
 
-        public void PlayBGM(BGMType type)
+        public static void PlayBGM(BGMType type) => Instance?._PlayBGM(type);
+        public static void StopBGM() => Instance?._StopBGM();
+        public static void PlaySE(SEType type) => Instance?._PlaySE(type);
+
+        private void _PlayBGM(BGMType type)
         {
             if (bgmAudioSource == null) return;
 
@@ -98,7 +107,7 @@ namespace MainSystem
             }
         }
 
-        public void StopBGM()
+        private void _StopBGM()
         {
             if (bgmAudioSource != null && bgmAudioSource.isPlaying)
             {
@@ -106,7 +115,7 @@ namespace MainSystem
             }
         }
 
-        public void PlaySE(SEType type)
+        private void _PlaySE(SEType type)
         {
             if (seAudioSource == null) return;
 
