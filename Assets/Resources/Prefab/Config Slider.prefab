@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4042221842774754883}
   - component: {fileID: 6090786977918224365}
-  - component: {fileID: 1394104927959191357}
-  - component: {fileID: 5824911507921572031}
+  - component: {fileID: 2346990035876993855}
   m_Layer: 6
   m_Name: Config Slider
   m_TagString: Untagged
@@ -92,20 +91,8 @@ MonoBehaviour:
   m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ConfigManager, Assembly-CSharp
-        m_MethodName: GetSliderValue
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1394104927959191357
+      m_Calls: []
+--- !u!114 &2346990035876993855
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,58 +101,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 978718807377521669}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Script: {fileID: 11500000, guid: 8739d9dbb780c114591e7c3ab0154b57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 2
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 5824911507921572031}
-          m_TargetAssemblyTypeName: ConfigSlider, Assembly-CSharp
-          m_MethodName: PointerDown
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 3
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 5824911507921572031}
-          m_TargetAssemblyTypeName: ConfigSlider, Assembly-CSharp
-          m_MethodName: PointerUp
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &5824911507921572031
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 978718807377521669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 301068b5204a6584c86be6c6deaaa364, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectedRawImage: {fileID: 7143552426243094687}
-  selectedVideoPlayer: {fileID: 4668148517954061547}
-  unselectedImage: {fileID: 3949263961638002266}
-  myText: {fileID: 6008184386173129207}
+  slider: {fileID: 6090786977918224365}
 --- !u!1 &1021778756072113158
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,7 +407,6 @@ GameObject:
   - component: {fileID: 4536722872536632659}
   - component: {fileID: 6173921667676119127}
   - component: {fileID: 6008184386173129207}
-  - component: {fileID: 8504899279000178906}
   m_Layer: 6
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -592,20 +530,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &8504899279000178906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7969363783159519289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a9d84025afd03440bb2b404a0b01933, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraObj: {fileID: 0}
-  isRotateText: 1
 --- !u!1 &8017967287173859891
 GameObject:
   m_ObjectHideFlags: 0
