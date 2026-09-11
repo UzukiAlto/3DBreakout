@@ -7,7 +7,6 @@ namespace Game
 {
     public class PanelObserver : MonoBehaviour
     {
-        // public GameObject currentSelectedPanel;
         public GameObject currentSelectedPanel { get; private set; }
         public GameObject currentOperatingPanel { get; private set; }
         [SerializeField] private PlayerRaycastHandler playerRaycastHandler;
@@ -26,20 +25,13 @@ namespace Game
                 return;
             }
 
-            if (playerRaycastHandler.hitObject.TryGetComponent(out PlayerPanelArea newPanel))
+            PlayerPanelArea newPanel = playerRaycastHandler.hitObject.GetComponent<PlayerPanelArea>();
+            GameObject newPanelObject = newPanel?.gameObject;
+
+            if (currentSelectedPanel != newPanelObject)
             {
-                if (currentSelectedPanel != newPanel.gameObject)
-                {
-                    currentSelectedPanel = newPanel.gameObject;
-                    OnSelectedPanelChanged?.Invoke(currentSelectedPanel);
-                }
-            } else
-            {
-                if (currentSelectedPanel != null)
-                {
-                    currentSelectedPanel = null;
-                    OnSelectedPanelChanged?.Invoke(null);
-                }
+                currentSelectedPanel = newPanelObject;
+                OnSelectedPanelChanged?.Invoke(currentSelectedPanel);
             }
         }
 
