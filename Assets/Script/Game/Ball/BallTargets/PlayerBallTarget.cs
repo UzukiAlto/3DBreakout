@@ -17,6 +17,7 @@ namespace Game
             reflectVec.Normalize();            
             rigidbody.velocity = Vector3.zero;
             rigidbody.AddForce(speed * reflectVec * GameState.gameSpeed);
+            MainSystem.AudioManager.PlaySE(MainSystem.AudioManager.SEType.Ball);
         }
 
         public void OnHitBallRaycast(Material material, float alpha)

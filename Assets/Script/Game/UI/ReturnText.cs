@@ -22,6 +22,7 @@ namespace Game
             {
                 return;
             }
+            MainSystem.AudioManager.PlaySE(MainSystem.AudioManager.SEType.Select);
             zoomOutTweener?.Kill();
             zoomInTweener = this.transform
                                 .DOScale(defaultScale * zoomScale, zoomDuration)
