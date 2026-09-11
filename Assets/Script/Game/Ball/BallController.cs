@@ -63,6 +63,7 @@ namespace Game
 
             transform.rotation = Quaternion.Euler(moveVec);
             ballRB.AddForce(baseSpeed * transform.forward * GameState.gameSpeed);
+            MainSystem.AudioManager.PlaySE(MainSystem.AudioManager.SEType.Ball);
 
             // forecastBall.SetActive(true);
         }

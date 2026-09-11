@@ -8,8 +8,8 @@ using UnityEngine.PlayerLoop;
 namespace Game
 {
     public class GameManager : MonoBehaviour
-    {        
-        [SerializeField] private GameObject systemInputObject; 
+    {
+        [SerializeField] private GameObject systemInputObject;
         [SerializeField] private GameObject playerMoveInputObject;
         [SerializeField] private LifeManager lifeManager;
         private ISystemInput systemInput;
@@ -40,7 +40,7 @@ namespace Game
 
         private void Awake()
         {
-            systemInput = systemInputObject.GetComponent<ISystemInput>();  
+            systemInput = systemInputObject.GetComponent<ISystemInput>();
             playerMoveInput = playerMoveInputObject.GetComponent<IPlayerMoveInput>();
         }
 
@@ -60,7 +60,7 @@ namespace Game
         }
         private void InitializeGameFlags()
         {
-            
+
             isGamePlaying = false;
             isGameOver = false;
             isGameReady = false;
@@ -77,6 +77,7 @@ namespace Game
 
         public void RaiseAllBlocksRemoved()
         {
+            AudioManager.PlaySE(AudioManager.SEType.Next);
             OnAllBlocksRemoved?.Invoke();
         }
 
@@ -103,7 +104,7 @@ namespace Game
             }
             else
             {
-                OnGameFailed?.Invoke(); 
+                OnGameFailed?.Invoke();
                 isGameReady = true;
             }
         }
