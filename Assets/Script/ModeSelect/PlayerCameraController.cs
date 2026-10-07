@@ -10,13 +10,15 @@ namespace ModeSelect
     {
         // インターフェースの参照元オブジェクト
         [SerializeField] private GameObject playerCameraInputObject;
+        [SerializeField] private Transform configCameraTransform;
         // プレイヤーのカメラ入力を受け取るためのインターフェース
         private IPlayerCameraInput playerCameraInput;
+        private Transform previousCameraTransform;
         private void Awake()
         {
             playerCameraInput = playerCameraInputObject.GetComponent<IPlayerCameraInput>();
         }
-        protected override void OnEnable() 
+        protected override void OnEnable()
         {
             base.OnEnable();
             // イベントの購読
@@ -25,7 +27,7 @@ namespace ModeSelect
             playerCameraInput.OnCameraMoveEnd += OnCameraMoveEnd;
         }
 
-        protected override void OnDisable() 
+        protected override void OnDisable()
         {
             base.OnDisable();
             if (playerCameraInput != null)
@@ -36,8 +38,31 @@ namespace ModeSelect
                 playerCameraInput.OnCameraMoveEnd -= OnCameraMoveEnd;
             }
         }
+        public void MoveToConfigPosition()
+        {
+            previousCameraTransform = transform;
+            CameraMovementUtility.MoveAroundPivot(
+                movingCamera: transform,
+                pivot: rotateCenterObj.transform,
+                targetPoint: configCameraTransform,
+                duration: 1f
+            );
+        }
+        public void MoveToPreviousPosition()
+        {
+            CameraMovementUtility.MoveAroundPivot(
+                movingCamera: transform,
+                pivot: rotateCenterObj.transform,
+                targetPoint: previousCameraTransform,
+                duration: 1f
+            );
+        }
         private void OnCameraMoveStart(Vector2 pointerPos)
         {
+
+            // 操作可能でないなら処理を行わない
+            if (!base.currentScreen.canOperate) return;
+
             // マウスカーソルをロックして非表示にする
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -49,10 +74,15 @@ namespace ModeSelect
         }
         private void OnCameraMoveEnd(Vector2 pointerPos)
         {
+
+            // 操作可能でないなら処理を行わない
+            if (!base.currentScreen.canOperate) return;
+
             // マウスカーソルをロック解除して表示する
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-        
+
+
     }
 }

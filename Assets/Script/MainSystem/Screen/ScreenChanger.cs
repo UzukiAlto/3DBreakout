@@ -74,38 +74,25 @@ namespace MainSystem
             Transform currentCameraTransform = currentScreen.cameraObject.transform;
             Transform previousCameraTransform = previousScreen.cameraObject.transform;
 
-            // previousCubeObjを中心にSlerpで補間するため、previousCubeObjの座標を引く
-            Vector3 endPos = currentCameraTransform.position - previousCubeObj.transform.position;
-            Vector3 startPos = previousCameraTransform.position - previousCubeObj.transform.position;
-
-            Quaternion endRotate = currentCameraTransform.rotation;
-            Quaternion startRotate = previousCameraTransform.rotation;
-
             // 画面遷移時にはUI等が追従しないように専用のカメラを動かす
             screenChangeCamera.transform.SetPositionAndRotation(previousCameraTransform.position, previousCameraTransform.rotation);
             previousScreen.cameraObject.SetActive(false);
             screenChangeCamera.SetActive(true);
 
-            float slerpPos = 0f;
-            DOTween.To
-            (
-                () => slerpPos,
-                x =>
+            // 共通クラスを使ってカメラ移動アニメーションを実行
+            CameraMovementUtility.MoveAroundPivot(
+                movingCamera: screenChangeCamera.transform,
+                pivot: previousCubeObj.transform,
+                targetPoint: currentCameraTransform,
+                duration: changeSecond,
+                onComplete: () =>
                 {
-                    screenChangeCamera.transform.position = Vector3.Slerp(startPos, endPos, x) + previousCubeObj.transform.position;
-                    screenChangeCamera.transform.rotation = Quaternion.Slerp(startRotate, endRotate, x);
-                },
-                1f,
-                changeSecond
-            )
-            .OnComplete(() =>
-            {
-                Debug.Log("ChangeScreenComplete");
-                previousScreen?.Hide();
-                screenChangeCamera.SetActive(false);
-                currentScreen.cameraObject.SetActive(true);
-            })
-            .SetEase(Ease.OutCubic);
+                    Debug.Log("ChangeScreenComplete");
+                    previousScreen?.Hide();
+                    screenChangeCamera.SetActive(false);
+                    currentScreen.cameraObject.SetActive(true);
+                }
+            );
         }
 
     }

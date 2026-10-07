@@ -8,12 +8,14 @@ namespace ModeSelect
         [SerializeField] private GameObject configObjects;
         [SerializeField] private GameObject configText;
         [SerializeField] private ScreenBase modeSelectScreen;
-        
+        [SerializeField] private PlayerCameraController playerCameraController;
+
         public void SwitchMode()
         {
             configObjects.SetActive(true);
             configText.SetActive(false);
             modeSelectScreen.SetEnableOperation(false);
+            playerCameraController.MoveToConfigPosition();
             Debug.Log("ConfigMode");
         }
         public void ReturnToModeSelect()

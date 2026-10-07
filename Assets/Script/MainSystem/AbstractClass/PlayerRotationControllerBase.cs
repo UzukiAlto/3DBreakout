@@ -10,13 +10,14 @@ namespace MainSystem
     /// </summary>
     public abstract class PlayerRotationControllerBase : MonoBehaviour
     {
-        [SerializeField] private ScreenBase currentScreen;
+        [SerializeField] protected ScreenBase currentScreen;
         [SerializeField] protected GameObject playerCameraObj;
         [SerializeField] protected GameObject rotateCenterObj;
         [SerializeField] private ConfigData configData;
 
         [SerializeField] private float sensitivity;
-        private const float SensitivityScale = 100f;
+        private const float MinSensitivity = 40f;
+        private const float MaxSensitivity = 100f;
 
         protected virtual void OnEnable()
         {
@@ -30,8 +31,7 @@ namespace MainSystem
 
         private void SetSensitivity(float configSensitivity)
         {
-            Debug.Log($"Sensitivity: {configSensitivity * SensitivityScale}");
-            this.sensitivity = configSensitivity * SensitivityScale;
+            this.sensitivity = Mathf.Lerp(MinSensitivity, MaxSensitivity, configSensitivity);
         }
 
         public void Rotate(Vector2 rotationAngle)
