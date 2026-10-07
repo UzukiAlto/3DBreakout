@@ -23,5 +23,6 @@ namespace ModeSelect
             configObjects.SetActive(false);
             configText.SetActive(true);
         }
+
     }
 }
