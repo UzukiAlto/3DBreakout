@@ -23,26 +23,26 @@ namespace ModeSelect
                 return;
             }
 
-            PlayerConfig config = configData.GetPlayerConfig();
+            var config = configData.GetPlayerConfig();
 
             // BGMの初期化と購読
             if (bgmSlider != null)
             {
-                bgmSlider.Initialize(config.bgmVolume);
+                bgmSlider.Initialize(config.BgmVolume);
                 bgmSlider.OnValueChanged += (val) => configData.UpdateBgmVolume(val);
             }
 
             // SEの初期化と購読
             if (seSlider != null)
             {
-                seSlider.Initialize(config.seVolume);
+                seSlider.Initialize(config.SeVolume);
                 seSlider.OnValueChanged += (val) => configData.UpdateSeVolume(val);
             }
 
             // 感度の初期化と購読
             if (sensitivitySlider != null)
             {
-                sensitivitySlider.Initialize(config.sensitivity);
+                sensitivitySlider.Initialize(config.Sensitivity);
                 sensitivitySlider.OnValueChanged += (val) => configData.UpdateSensitivity(val);
             }
         }
