@@ -9,11 +9,11 @@ namespace MainSystem
     public class ConfigData : MonoBehaviour
     {
         // debug
-        private PlayerConfig _playerConfig = new PlayerConfig(1f, 0.5f, 0.5f);
+        private PlayerConfig _playerConfig = new PlayerConfig(0.5f, 0.5f, 0.5f);
 
-        public event Action<float> OnSensitivityChanged;
-        public event Action<float> OnBgmVolumeChanged;
-        public event Action<float> OnSeVolumeChanged;
+        private event Action<float> OnSensitivityChanged;
+        private event Action<float> OnBgmVolumeChanged;
+        private event Action<float> OnSeVolumeChanged;
 
         public IReadOnlyPlayerConfig GetPlayerConfig()
         {
@@ -36,6 +36,42 @@ namespace MainSystem
         {
             _playerConfig.seVolume = value;
             OnSeVolumeChanged?.Invoke(value);
+        }
+
+        // --- 購読＆初期値通知メソッド ---
+
+        public void SubscribeSensitivity(Action<float> callback)
+        {
+            Debug.Log("SubscribeSensitivity: " + callback.Method.Name);
+            OnSensitivityChanged += callback;
+            callback?.Invoke(_playerConfig.Sensitivity);
+        }
+
+        public void UnsubscribeSensitivity(Action<float> callback)
+        {
+            OnSensitivityChanged -= callback;
+        }
+
+        public void SubscribeBgmVolume(Action<float> callback)
+        {
+            OnBgmVolumeChanged += callback;
+            callback?.Invoke(_playerConfig.BgmVolume);
+        }
+
+        public void UnsubscribeBgmVolume(Action<float> callback)
+        {
+            OnBgmVolumeChanged -= callback;
+        }
+
+        public void SubscribeSeVolume(Action<float> callback)
+        {
+            OnSeVolumeChanged += callback;
+            callback?.Invoke(_playerConfig.SeVolume);
+        }
+
+        public void UnsubscribeSeVolume(Action<float> callback)
+        {
+            OnSeVolumeChanged -= callback;
         }
     }
 

@@ -34,6 +34,7 @@ namespace MainSystem
             public SEType type;
             public AudioClip clip;
         }
+        [SerializeField] private ConfigData configData;
 
         [SerializeField] private AudioSource bgmAudioSource;
         [SerializeField] private AudioSource seAudioSource;
@@ -61,6 +62,18 @@ namespace MainSystem
         {
             PlayBGM(BGMType.Main);
             Debug.Log("PlayBGM");
+        }
+
+        private void OnEnable()
+        {
+            configData.SubscribeBgmVolume(SetBgmVolume);
+            configData.SubscribeSeVolume(SetSeVolume);
+        }
+
+        private void OnDisable()
+        {
+            configData.UnsubscribeBgmVolume(SetBgmVolume);
+            configData.UnsubscribeSeVolume(SetSeVolume);
         }
 
         private void InitializeDictionaries()
@@ -127,6 +140,16 @@ namespace MainSystem
             {
                 Debug.LogWarning($"SE {type} がAudioManagerに登録されていません。");
             }
+        }
+
+        private void SetBgmVolume(float volume)
+        {
+            bgmAudioSource.volume = volume;
+        }
+
+        private void SetSeVolume(float volume)
+        {
+            seAudioSource.volume = volume;
         }
     }
 }

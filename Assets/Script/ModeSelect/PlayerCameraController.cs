@@ -16,16 +16,18 @@ namespace ModeSelect
         {
             playerCameraInput = playerCameraInputObject.GetComponent<IPlayerCameraInput>();
         }
-        private void OnEnable() 
+        protected override void OnEnable() 
         {
+            base.OnEnable();
             // イベントの購読
             playerCameraInput.OnCameraMoveStart += OnCameraMoveStart;
             playerCameraInput.OnCameraMovingDelta += OnCameraMovingDelta;
             playerCameraInput.OnCameraMoveEnd += OnCameraMoveEnd;
         }
 
-        private void OnDisable() 
+        protected override void OnDisable() 
         {
+            base.OnDisable();
             if (playerCameraInput != null)
             {
                 // イベントの購読解除
