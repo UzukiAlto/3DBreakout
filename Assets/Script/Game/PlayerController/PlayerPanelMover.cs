@@ -12,20 +12,22 @@ namespace Game
         [SerializeField] private ScreenBase gameScreen;
         [SerializeField] private PanelObserver panelObserver;
         [SerializeField] private GameManager gameManager;
-        private IPlayerMoveInput playerMoveInput; 
+        private IPlayerMoveInput playerMoveInput;
         private Vector3 initialPlayerPosition = new Vector3(0f, 0f, -4.7f);
         private Quaternion initialPlayerRotation = Quaternion.identity;
-        private float baseMoveSpeed = 0.03f;
+        private float baseMoveSpeed = 1.8f;
         void Awake()
         {
-            playerMoveInput = playerMoveInputObject.GetComponent<IPlayerMoveInput>();            
+            playerMoveInput = playerMoveInputObject.GetComponent<IPlayerMoveInput>();
         }
-        private void OnEnable() {
+        private void OnEnable()
+        {
             playerMoveInput.OnMoving += MovePlayerPanel;
             gameManager.OnGameReady += InitializePlayerPosition;
             gameManager.OnGameFailed += InitializePlayerPosition;
         }
-        private void OnDisable() {
+        private void OnDisable()
+        {
             playerMoveInput.OnMoving -= MovePlayerPanel;
             gameManager.OnGameReady -= InitializePlayerPosition;
             gameManager.OnGameFailed -= InitializePlayerPosition;
@@ -49,9 +51,9 @@ namespace Game
                 return;
             }
 
-            Vector3 inputDirection = moveDelta.x * gameScreen.screenCamera.transform.right + moveDelta.y * gameScreen.screenCamera.transform.up; 
+            Vector3 inputDirection = moveDelta.x * gameScreen.screenCamera.transform.right + moveDelta.y * gameScreen.screenCamera.transform.up;
             // 移動速度の調整
-            inputDirection *= baseMoveSpeed * GameState.gameSpeed; 
+            inputDirection *= baseMoveSpeed * GameState.gameSpeed * Time.deltaTime;
 
             PlayerPanelArea currentPanelArea = panelObserver.currentOperatingPanel.GetComponent<PlayerPanelArea>();
             // パネルに対して平行に移動させる
@@ -61,7 +63,7 @@ namespace Game
             // プレイヤーパネルが移動できる範囲を制限する
             Bounds panelBounds = currentPanelArea.moveableAreaBounds;
             nextPos = new Vector3(
-                Mathf.Clamp(nextPos.x,  panelBounds.min.x, panelBounds.max.x),
+                Mathf.Clamp(nextPos.x, panelBounds.min.x, panelBounds.max.x),
                 Mathf.Clamp(nextPos.y, panelBounds.min.y, panelBounds.max.y),
                 Mathf.Clamp(nextPos.z, panelBounds.min.z, panelBounds.max.z)
             );
