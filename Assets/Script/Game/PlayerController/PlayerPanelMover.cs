@@ -15,7 +15,7 @@ namespace Game
         private IPlayerMoveInput playerMoveInput;
         private Vector3 initialPlayerPosition = new Vector3(0f, 0f, -4.7f);
         private Quaternion initialPlayerRotation = Quaternion.identity;
-        private float baseMoveSpeed = 1.8f;
+        private float baseMoveSpeed = 5f;
         void Awake()
         {
             playerMoveInput = playerMoveInputObject.GetComponent<IPlayerMoveInput>();
