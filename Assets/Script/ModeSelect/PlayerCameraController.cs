@@ -13,7 +13,8 @@ namespace ModeSelect
         [SerializeField] private Transform configCameraTransform;
         // プレイヤーのカメラ入力を受け取るためのインターフェース
         private IPlayerCameraInput playerCameraInput;
-        private Transform previousCameraTransform;
+        private Vector3 previousCameraPosition;
+        private Quaternion previousCameraRotation;
         private void Awake()
         {
             playerCameraInput = playerCameraInputObject.GetComponent<IPlayerCameraInput>();
@@ -40,9 +41,10 @@ namespace ModeSelect
         }
         public void MoveToConfigPosition()
         {
-            previousCameraTransform = transform;
+            previousCameraPosition = this.transform.position;
+            previousCameraRotation = this.transform.rotation;
             CameraMovementUtility.MoveAroundPivot(
-                movingCamera: transform,
+                movingCamera: this.transform,
                 pivot: rotateCenterObj.transform,
                 targetPoint: configCameraTransform,
                 duration: 1f
@@ -51,9 +53,10 @@ namespace ModeSelect
         public void MoveToPreviousPosition()
         {
             CameraMovementUtility.MoveAroundPivot(
-                movingCamera: transform,
+                movingCamera: this.transform,
                 pivot: rotateCenterObj.transform,
-                targetPoint: previousCameraTransform,
+                targetPosition: previousCameraPosition,
+                targetRotation: previousCameraRotation,
                 duration: 1f
             );
         }

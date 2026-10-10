@@ -16,11 +16,16 @@ namespace MainSystem
         /// <param name="onComplete">アニメーション終了時に実行する処理（省略可）</param>
         public static void MoveAroundPivot(Transform movingCamera, Transform pivot, Transform targetPoint, float duration, Action onComplete = null)
         {
+            MoveAroundPivot(movingCamera, pivot, targetPoint.position, targetPoint.rotation, duration, onComplete);
+        }
+
+        public static void MoveAroundPivot(Transform movingCamera, Transform pivot, Vector3 targetPosition, Quaternion targetRotation, float duration, Action onComplete = null)
+        {
             Vector3 startPos = movingCamera.position - pivot.position;
-            Vector3 endPos = targetPoint.position - pivot.position;
+            Vector3 endPos = targetPosition - pivot.position;
 
             Quaternion startRotate = movingCamera.rotation;
-            Quaternion endRotate = targetPoint.rotation;
+            Quaternion endRotate = targetRotation;
 
             float slerpPos = 0f;
             DOTween.To

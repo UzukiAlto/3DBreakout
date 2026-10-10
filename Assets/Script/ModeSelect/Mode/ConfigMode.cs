@@ -18,10 +18,13 @@ namespace ModeSelect
             playerCameraController.MoveToConfigPosition();
             Debug.Log("ConfigMode");
         }
+        // ReturnButtonのonclickで呼ばれる
         public void ReturnToModeSelect()
         {
             configObjects.SetActive(false);
             configText.SetActive(true);
+            modeSelectScreen.SetEnableOperation(true);
+            playerCameraController.MoveToPreviousPosition();
         }
 
     }
