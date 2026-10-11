@@ -4,16 +4,63 @@ using System;
 namespace MainSystem
 {
     /// <summary>
-    /// プレイヤーの設定を保持するクラス
+    /// プレイヤーの設定を保持・永続化するクラス
     /// </summary>
     public class ConfigData : MonoBehaviour
     {
-        // debug
-        private PlayerConfig _playerConfig = new PlayerConfig(0.5f, 0.5f, 0.5f);
+        private const string SensitivityKey = "Config_Sensitivity";
+        private const string BgmVolumeKey = "Config_BgmVolume";
+        private const string SeVolumeKey = "Config_SeVolume";
+
+        private const float DefaultSensitivity = 0.5f;
+        private const float DefaultBgmVolume = 0.5f;
+        private const float DefaultSeVolume = 0.5f;
+
+        private PlayerConfig _playerConfig = new PlayerConfig(DefaultSensitivity, DefaultBgmVolume, DefaultSeVolume);
 
         private event Action<float> OnSensitivityChanged;
         private event Action<float> OnBgmVolumeChanged;
         private event Action<float> OnSeVolumeChanged;
+
+        private void Awake()
+        {
+            // 起動時に保存された設定値を復元するため
+            Load();
+        }
+
+        private void OnApplicationQuit()
+        {
+            // アプリケーション終了時に未保存の設定が失われるのを防ぐため
+            Save();
+        }
+
+        /// <summary>
+        /// PlayerPrefsから設定を読み込みます
+        /// </summary>
+        public void Load()
+        {
+            float sensitivity = PlayerPrefs.GetFloat(SensitivityKey, DefaultSensitivity);
+            float bgmVolume = PlayerPrefs.GetFloat(BgmVolumeKey, DefaultBgmVolume);
+            float seVolume = PlayerPrefs.GetFloat(SeVolumeKey, DefaultSeVolume);
+
+            _playerConfig = new PlayerConfig(sensitivity, bgmVolume, seVolume);
+        }
+
+        /// <summary>
+        /// 現在の設定をPlayerPrefsに保存します
+        /// </summary>
+        public void Save()
+        {
+            if (_playerConfig == null)
+            {
+                return;
+            }
+
+            PlayerPrefs.SetFloat(SensitivityKey, _playerConfig.Sensitivity);
+            PlayerPrefs.SetFloat(BgmVolumeKey, _playerConfig.BgmVolume);
+            PlayerPrefs.SetFloat(SeVolumeKey, _playerConfig.SeVolume);
+            PlayerPrefs.Save();
+        }
 
         public IReadOnlyPlayerConfig GetPlayerConfig()
         {
