@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using MainSystem;
 
 namespace ModeSelect
 {
@@ -32,6 +33,7 @@ namespace ModeSelect
         }
         public void OnPointerDown(PointerEventData eventData)
         {
+            AudioManager.PlaySE(AudioManager.SEType.Select);
             transform.DOScale(0.9f, 0.1f)
                 .SetEase(Ease.OutCubic)
                 .SetLink(this.gameObject);
