@@ -19,7 +19,10 @@ namespace ModeSelect
 
         private void Awake()
         {
-            handleImage = handleObject.GetComponent<Image>();
+            if (handleObject != null)
+            {
+                handleImage = handleObject.GetComponent<Image>();
+            }
         }
         private void OnEnable()
         {
