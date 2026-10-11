@@ -23,11 +23,14 @@ namespace ModeSelect
         {
             targetImage = GetComponent<Image>();
             defaultScale = transform.localScale.x;
-
+        }
+        private void OnEnable()
+        {
             if (targetImage != null)
             {
                 targetImage.color = defaultColor;
             }
+            transform.localScale = Vector3.one * defaultScale;
         }
 
         public void OnPointerEnter(PointerEventData eventData)

@@ -10,8 +10,11 @@ namespace ModeSelect
     public class ConfigSlider : MonoBehaviour
     {
         [SerializeField] private Slider slider;
-        
+
         public event Action<float> OnValueChanged;
+
+        // 初期化後に購読した側が、通知を待たずに現在値を取得できるように公開する
+        public float Value => slider != null ? slider.value : 0f;
 
         public void Initialize(float initialValue)
         {
@@ -21,11 +24,14 @@ namespace ModeSelect
                 return;
             }
 
-            // 初期値をセット（この時点では余計なイベントを発火させないよう SetValueWithoutNotify を使用）
+            // slider.valueへの代入はInspector上の値と同じだと通知されないため、通知せずに値だけ反映する
             slider.SetValueWithoutNotify(initialValue);
-            
+
             // 値が変更されたらイベントを発火するようにリスナーを登録
             slider.onValueChanged.AddListener(val => OnValueChanged?.Invoke(val));
+
+            // Inspector上の値に左右されず、既に購読している側へ必ず初期値を届けるため明示的に通知する
+            OnValueChanged?.Invoke(initialValue);
         }
 
         private void OnDestroy()
