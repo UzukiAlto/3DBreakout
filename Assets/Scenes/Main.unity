@@ -8690,6 +8690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e682df1238117941adda2ef6461e00c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  configData: {fileID: 983244555}
   configObjects: {fileID: 2129329858}
   configText: {fileID: 173688022}
   modeSelectScreen: {fileID: 1122372181}
