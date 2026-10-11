@@ -16,9 +16,13 @@ namespace ModeSelect
         private Image handleImage;
         private float handleRotate = 180f;
         private float defaultHandleRotate = 45f;
+        private float defaultScale;
+        private float selectScale;
 
         private void Awake()
         {
+            defaultScale = transform.localScale.x;
+            selectScale = defaultScale * 0.9f;
             if (handleObject != null)
             {
                 handleImage = handleObject.GetComponent<Image>();
@@ -37,13 +41,13 @@ namespace ModeSelect
         public void OnPointerDown(PointerEventData eventData)
         {
             AudioManager.PlaySE(AudioManager.SEType.Select);
-            transform.DOScale(0.9f, 0.1f)
+            transform.DOScale(selectScale, 0.1f)
                 .SetEase(Ease.OutCubic)
                 .SetLink(this.gameObject);
         }
         public void OnPointerUp(PointerEventData eventData)
         {
-            transform.DOScale(1.0f, 0.1f)
+            transform.DOScale(defaultScale, 0.1f)
                 .SetEase(Ease.InCubic)
                 .SetLink(this.gameObject);
         }
