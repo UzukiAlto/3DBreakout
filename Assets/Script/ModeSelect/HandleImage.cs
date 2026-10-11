@@ -9,12 +9,12 @@ namespace ModeSelect
 {
     public class HandleImage : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-        [SerializeField] private Color leftColor;
-        [SerializeField] private Color rightColor;
+        [SerializeField] private Gradient handleGradient;
         [SerializeField] private ConfigSlider configSlider;
         [SerializeField] private GameObject handleObject;
         private Image handleImage;
         private float handleRotate = 180f;
+        private float defaultHandleRotate = 45f;
 
         private void Awake()
         {
@@ -44,8 +44,13 @@ namespace ModeSelect
         }
         public void ChangeHandleColor(float value)
         {
-            handleImage.color = Color.Lerp(leftColor, rightColor, value);
-            float nextHandleRotate = Mathf.Lerp(handleRotate, -handleRotate, value);
+            if (handleGradient != null && handleImage != null)
+            {
+                // スライダー値に応じた色をグラデーションから取得して反映
+                handleImage.color = handleGradient.Evaluate(value);
+            }
+
+            float nextHandleRotate = defaultHandleRotate + Mathf.Lerp(handleRotate, -handleRotate, value);
             handleObject.transform.localEulerAngles = new Vector3(0, 0, nextHandleRotate);
         }
     }

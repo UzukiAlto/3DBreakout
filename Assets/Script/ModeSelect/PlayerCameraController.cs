@@ -31,6 +31,10 @@ namespace ModeSelect
         protected override void OnDisable()
         {
             base.OnDisable();
+
+            // 画面切り替え等で無効化された際にカーソルがロックされたまま残るのを防ぐため
+            UnlockCursor();
+
             if (playerCameraInput != null)
             {
                 // イベントの購読解除
@@ -41,6 +45,9 @@ namespace ModeSelect
         }
         public void MoveToConfigPosition()
         {
+            // 設定画面への遷移開始時にドラッグ中だった場合でも、UI操作ができるようにカーソルを復帰させるため
+            UnlockCursor();
+
             previousCameraPosition = this.transform.position;
             previousCameraRotation = this.transform.rotation;
             CameraMovementUtility.MoveAroundPivot(
@@ -62,11 +69,13 @@ namespace ModeSelect
         }
         private void OnCameraMoveStart(Vector2 pointerPos)
         {
+            // 操作可能でない画面ではドラッグによるカメラ回転を開始させないため
+            if (!base.currentScreen.canOperate)
+            {
+                return;
+            }
 
-            // 操作可能でないなら処理を行わない
-            if (!base.currentScreen.canOperate) return;
-
-            // マウスカーソルをロックして非表示にする
+            // ドラッグ中のマウス移動量を安定して取得するためカーソルをロック
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
@@ -77,11 +86,12 @@ namespace ModeSelect
         }
         private void OnCameraMoveEnd(Vector2 pointerPos)
         {
+            // 操作可能状態にかかわらず、クリック終了時は確実にカーソルを操作可能状態へ復帰させるため
+            UnlockCursor();
+        }
 
-            // 操作可能でないなら処理を行わない
-            if (!base.currentScreen.canOperate) return;
-
-            // マウスカーソルをロック解除して表示する
+        private void UnlockCursor()
+        {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
