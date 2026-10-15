@@ -29,12 +29,14 @@ namespace Game
 
         void Update()
         {
+#if UNITY_EDITOR
             // debug
             // デバッグ用に全ブロック削除を強制的に呼び出す
             if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.N))
             {
                 RaiseAllBlocksRemoved();
             }
+#endif
         }
 
 
