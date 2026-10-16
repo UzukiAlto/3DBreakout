@@ -66,6 +66,7 @@ namespace Tutorial
             }
 
             isCompleted = true;
+            Debug.Log($"[CameraRotateTutorialStep] 視線移動ステップ完了: 累積ドラッグ量 = {accumulatedDrag:F2} / 目標 = {requiredDragAmount:F2} (GameObject: {gameObject.name})");
             CompleteStep();
         }
     }

@@ -1,17 +1,23 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Game;
 
 namespace Tutorial
 {
     /// <summary>
     /// チュートリアルの各ステップを順番に実行・管理するシーケンサ
-    /// 展示用として画面ごとの表示頻度（リセット/セッションスキップ）を制御します
+    /// 展示用として画面ごとの表示頻度（リセット/セッションスキップ）やゲーム開始待機を制御します
     /// </summary>
     public class TutorialSequence : MonoBehaviour
     {
         [Header("UI & Steps")]
         [SerializeField] private TutorialUI tutorialUI;
         [SerializeField] private List<TutorialStepBase> steps = new List<TutorialStepBase>();
+
+        [Header("Game Start Timing")]
+        [Tooltip("ゲーム開始イベント（GameManager.OnGameStarted）を待ってから開始するか（ゲーム画面用）")]
+        [SerializeField] private bool startOnGameStarted = false;
+        [SerializeField] private GameManager gameManager;
 
         [Header("Exhibition Settings")]
         [Tooltip("有効化されるたびに毎回チュートリアルを実行するか（モード選択画面等）")]
@@ -26,8 +32,52 @@ namespace Tutorial
         private int currentStepIndex = -1;
         private bool isRunning = false;
 
+        private void Awake()
+        {
+            // ゲーム画面用チュートリアルの場合、ボール発射前の操作不可時に案内が始まらないよう自動設定
+            if (isGameScreenTutorial)
+            {
+                startOnGameStarted = true;
+                if (gameManager == null)
+                {
+                    gameManager = FindObjectOfType<GameManager>();
+                }
+            }
+
+            // シーン上で編集用にActiveのまま保存されていても、実行開始時は全て確実に非アクティブ化するため
+            if (steps == null)
+            {
+                return;
+            }
+
+            foreach (TutorialStepBase step in steps)
+            {
+                if (step == null || step.Visual == null)
+                {
+                    continue;
+                }
+
+                step.Visual.gameObject.SetActive(false);
+            }
+        }
+
         private void OnEnable()
         {
+            // 毎回リセットが有効な場合は、前回のセッション完了状態もクリアして再実行を可能にする
+            if (resetOnEnable && isGameScreenTutorial)
+            {
+                hasCompletedGameTutorial = false;
+            }
+
+            // ゲーム画面の場合、ゲーム開始前（Start待機中）は操作不能なためゲーム開始イベントを待機
+            if (startOnGameStarted && gameManager != null)
+            {
+                gameManager.OnGameStarted += HandleGameStarted;
+                gameManager.OnGameFailed += HandleGameInterrupted;
+                gameManager.OnGameOver += HandleGameInterrupted;
+                return;
+            }
+
             // モード選択画面など、画面が開くたびにプレイヤー交代の可能性があるため毎回リセット
             if (resetOnEnable)
             {
@@ -50,7 +100,41 @@ namespace Tutorial
 
         private void OnDisable()
         {
+            if (gameManager != null)
+            {
+                gameManager.OnGameStarted -= HandleGameStarted;
+                gameManager.OnGameFailed -= HandleGameInterrupted;
+                gameManager.OnGameOver -= HandleGameInterrupted;
+            }
+
             // 画面遷移等で中断された際にイベント購読が残るのを防ぐため
+            StopSequence();
+        }
+
+        private void HandleGameStarted()
+        {
+            // 毎回リセットが有効な場合は前回の完了フラグをクリア
+            if (resetOnEnable && isGameScreenTutorial)
+            {
+                hasCompletedGameTutorial = false;
+            }
+
+            // 展示会で同じプレイヤーがリトライ中であればスキップ（毎回リセットが無効な場合のみ）
+            if (!resetOnEnable && isGameScreenTutorial && hasCompletedGameTutorial)
+            {
+                if (tutorialUI != null)
+                {
+                    tutorialUI.ForceHideImmediate();
+                }
+                return;
+            }
+
+            StartSequence();
+        }
+
+        private void HandleGameInterrupted()
+        {
+            // 失敗時やゲームオーバー時はチュートリアル案内を安全に中断
             StopSequence();
         }
 
@@ -89,6 +173,7 @@ namespace Tutorial
                 if (activeStep != null)
                 {
                     activeStep.OnStepCompleted -= HandleStepCompleted;
+                    activeStep.OnRequestShowVisual -= HandleRequestShowVisual;
                     activeStep.ExitStep();
                 }
             }
@@ -108,6 +193,7 @@ namespace Tutorial
                 if (previousStep != null)
                 {
                     previousStep.OnStepCompleted -= HandleStepCompleted;
+                    previousStep.OnRequestShowVisual -= HandleRequestShowVisual;
                     previousStep.ExitStep();
                 }
             }
@@ -129,13 +215,37 @@ namespace Tutorial
                 return;
             }
 
-            if (tutorialUI != null)
+            currentStep.OnStepCompleted += HandleStepCompleted;
+            currentStep.OnRequestShowVisual += HandleRequestShowVisual;
+
+            // ステップ開始時の自動表示フラグが有効な場合のみアニメーションを表示
+            if (currentStep.AutoShowVisualOnEnter)
             {
-                tutorialUI.ShowMessage(currentStep.GuideMessage);
+                if (tutorialUI != null)
+                {
+                    tutorialUI.ShowVisual(currentStep.Visual);
+                }
+            }
+            else
+            {
+                // 次のステップが待機状態（遅延表示）の場合は、直前のVisualを達成演出とともに閉じる
+                if (tutorialUI != null)
+                {
+                    tutorialUI.DismissCurrentVisual();
+                }
             }
 
-            currentStep.OnStepCompleted += HandleStepCompleted;
             currentStep.EnterStep();
+        }
+
+        private void HandleRequestShowVisual(TutorialVisualBase visual)
+        {
+            if (!isRunning || tutorialUI == null)
+            {
+                return;
+            }
+
+            tutorialUI.ShowVisual(visual);
         }
 
         private void HandleStepCompleted()
