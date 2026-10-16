@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using MainSystem;
 using System.Collections.Generic;
 
 namespace ModeSelect
@@ -19,7 +20,15 @@ namespace ModeSelect
             TMP_Text selectedText = selectedObject.transform.Find("Canvas/AdjustTextRotate/Text (TMP)").gameObject.GetComponent<TMP_Text>();
             if (previousText != null)
             {
+                if (previousText != selectedText)
+                {
+                    AudioManager.PlaySE(AudioManager.SEType.Select);
+                }
                 previousText.color = defaultColor;
+            }
+            else
+            {
+                AudioManager.PlaySE(AudioManager.SEType.Select);
             }
 
             selectedText.color = selectedColor;

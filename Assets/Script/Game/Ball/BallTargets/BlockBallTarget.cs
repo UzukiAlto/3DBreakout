@@ -18,6 +18,7 @@ namespace Game
         public void OnHitBallObject(Rigidbody rigidbody, float speed)
         {
             blockManager.RemoveBlock(this.gameObject);
+            MainSystem.AudioManager.PlaySE(MainSystem.AudioManager.SEType.Ball);
         }
 
         public void OnHitBallRaycast(Material material, float alpha)

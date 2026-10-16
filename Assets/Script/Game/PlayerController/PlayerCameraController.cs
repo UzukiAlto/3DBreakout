@@ -26,8 +26,9 @@ namespace Game
             defaultCameraPosition = playerCameraObj.transform.position;
             defaultCameraRotation = playerCameraObj.transform.rotation;
         }
-        private void OnEnable() 
+        protected override void OnEnable() 
         {
+            base.OnEnable();
             // イベントの購読
             // playerCameraInput.OnCameraMoveStart += OnCameraMoveStart;
             playerCameraInput.OnCameraMovingDelta += OnCameraMovingDelta;
@@ -38,8 +39,9 @@ namespace Game
             isCameraMoving = false;
         }
 
-        private void OnDisable() 
+        protected override void OnDisable() 
         {
+            base.OnDisable();
             if (playerCameraInput != null)
             {
                 // イベントの購読解除

@@ -18,6 +18,7 @@ namespace Game
         public void OnHitBallObject(Rigidbody rigidbody, float speed)
         {
             gameManager.FailGame();
+            MainSystem.AudioManager.PlaySE(MainSystem.AudioManager.SEType.Fail);
         }
 
         public void OnHitBallRaycast(Material material, float alpha)
