@@ -279,17 +279,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keys:
   - keyImage: {fileID: 5465000832169449036}
-    defaultSprite: {fileID: 21300000, guid: 2394741927ec35645aa6be4df0654c3e, type: 3}
-    pressedSprite: {fileID: 21300000, guid: 678b8cdbebf32c440a44f48a183c51ed, type: 3}
+    defaultSprite: {fileID: 3286163911610860551, guid: d8750043853b23e40b85637c2a0ffd45, type: 3}
+    pressedSprite: {fileID: 3286163911610860551, guid: c367764d2882e6546a9199f8f5133d6c, type: 3}
   - keyImage: {fileID: 657053507181873807}
-    defaultSprite: {fileID: 21300000, guid: 535a32e22cdc83740bb553956a856732, type: 3}
-    pressedSprite: {fileID: 21300000, guid: 8cfd5968629a110468ae29d78d77dc7c, type: 3}
+    defaultSprite: {fileID: 3286163911610860551, guid: 8c9a314ab3fd19049b84892c96bc4fd7, type: 3}
+    pressedSprite: {fileID: 3286163911610860551, guid: 199dd2eacf99b3243ade2af97be26462, type: 3}
   - keyImage: {fileID: 2777939049761609569}
-    defaultSprite: {fileID: 21300000, guid: 14a337dda6012c441b8a374e58659b3e, type: 3}
-    pressedSprite: {fileID: 21300000, guid: 79bfba0898986214a87a2557628546e4, type: 3}
+    defaultSprite: {fileID: 3286163911610860551, guid: e37cb43da2154e746a79c47f7bbaa96b, type: 3}
+    pressedSprite: {fileID: 3286163911610860551, guid: c9ec3b2dc97e6c745a0de133131c87a7, type: 3}
   - keyImage: {fileID: 7676462998780452578}
-    defaultSprite: {fileID: 21300000, guid: 903ed1e2d5740c2489773f68435bc3cc, type: 3}
-    pressedSprite: {fileID: 21300000, guid: 69ba8816399b1ab468c4098c47be174b, type: 3}
+    defaultSprite: {fileID: 3286163911610860551, guid: b8a5567a92a2b3643bcdaa7c8d8014ea, type: 3}
+    pressedSprite: {fileID: 3286163911610860551, guid: 8b7e9ec4b6dd4a24dada7fea5b438fca, type: 3}
   pressedScale: 0.95
   pressDuration: 0.05
   holdDuration: 0.25
