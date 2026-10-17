@@ -10,13 +10,14 @@ namespace ModeSelect
         [SerializeField] private GameObject configText;
         [SerializeField] private ScreenBase modeSelectScreen;
         [SerializeField] private PlayerCameraController playerCameraController;
+        [SerializeField] private Transform configCameraTransform;
 
         public void SwitchMode()
         {
             configObjects.SetActive(true);
             configText.SetActive(false);
             modeSelectScreen.SetEnableOperation(false);
-            playerCameraController.MoveToConfigPosition();
+            playerCameraController.MoveToTargetPosition(configCameraTransform);
             Debug.Log("ConfigMode");
         }
         // ReturnButtonのonclickで呼ばれる
