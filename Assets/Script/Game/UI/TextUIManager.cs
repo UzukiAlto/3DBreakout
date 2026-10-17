@@ -70,7 +70,8 @@ namespace Game
         {
             stageText.text = $"Stage: {GameState.currentStage}";
             float roundedGameSpeed = (float)Math.Round(GameState.gameSpeed, 2, MidpointRounding.AwayFromZero);
-            gameSpeedText.text = $"Game Speed: x{roundedGameSpeed.ToString("F2")}";
+
+            gameSpeedText.text = $"Speed: x{roundedGameSpeed.ToString("F2")}";
             if (GameState.currentStage >= scoreManager.ScoreList[0])
             {
                 highScoreText.enabled = true;

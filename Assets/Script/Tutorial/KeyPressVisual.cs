@@ -64,16 +64,19 @@ namespace Tutorial
         private void Awake()
         {
             CacheInitialState();
-
-            // エディタ上で配置・確認のためにアクティブのまま残されていても、開始時は非表示にするため
-            gameObject.SetActive(false);
         }
 
         public override void Play()
         {
+            // オブジェクトのアクティブ化タイミングに依存せず初期状態を安全に保持するため
+            if (!isInitialized)
+            {
+                CacheInitialState();
+            }
+
             Stop();
 
-            if (!isInitialized || keys.Count == 0)
+            if (keys.Count == 0)
             {
                 Debug.LogWarning("KeyPressVisual にキーが登録されていないため、アニメーションを再生できません。");
                 return;
