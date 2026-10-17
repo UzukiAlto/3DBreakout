@@ -10,10 +10,12 @@ namespace Game
     public class TextUIManager : MonoBehaviour, IInitializable
     {
         [SerializeField] private GameManager gameManager;
+        [SerializeField] private ScoreManager scoreManager;
         [SerializeField] private TMP_Text startText;
         [SerializeField] private TMP_Text stageText;
         [SerializeField] private TMP_Text gameSpeedText;
         [SerializeField] private TMP_Text retryText;
+        [SerializeField] private TMP_Text highScoreText;
 
         public void OnEnable()
         {
@@ -37,6 +39,7 @@ namespace Game
             stageText.enabled = false;
             gameSpeedText.enabled = false;
             retryText.enabled = false;
+            highScoreText.enabled = false;
         }
 
         private void OnGameStarted()
@@ -45,12 +48,14 @@ namespace Game
             stageText.enabled = true;
             gameSpeedText.enabled = true;
             retryText.enabled = false;
+            highScoreText.enabled = false;
         }
 
         private void OnGameFailed()
         {
             startText.enabled = true;
             stageText.enabled = false;
+            highScoreText.enabled = false;
             gameSpeedText.enabled = false;
         }
 
@@ -59,12 +64,17 @@ namespace Game
             stageText.enabled = false;
             gameSpeedText.enabled = false;
             retryText.enabled = true;
+            stageText.enabled = true;
         }
         private void UpdateText()
         {
             stageText.text = $"Stage: {GameState.currentStage}";
             float roundedGameSpeed = (float)Math.Round(GameState.gameSpeed, 2, MidpointRounding.AwayFromZero);
             gameSpeedText.text = $"Game Speed: x{roundedGameSpeed.ToString("F2")}";
+            if (GameState.currentStage >= scoreManager.ScoreList[0])
+            {
+                highScoreText.enabled = true;
+            }
         }
 
     }
