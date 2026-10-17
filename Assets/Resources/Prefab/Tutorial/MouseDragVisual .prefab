@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3286163911610860551, guid: 427a7cfa4f0466c42befad7e26eec655, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 27abd2d535446b14180dff2319194e53, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -125,8 +125,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseImage: {fileID: 8948277762562310407}
-  defaultSprite: {fileID: 3286163911610860551, guid: 427a7cfa4f0466c42befad7e26eec655, type: 3}
-  clickedSprite: {fileID: 3286163911610860551, guid: 0e24c9a52a26d064caee87d23660dc25, type: 3}
+  defaultSprite: {fileID: 21300000, guid: 27abd2d535446b14180dff2319194e53, type: 3}
+  clickedSprite: {fileID: 21300000, guid: 156e2c661ab3d5443bf340766a61b15c, type: 3}
   moveRange: 40
   moveDuration: 0.5
   clickHoldDuration: 0.15
