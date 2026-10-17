@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.6 Chrome/138.0.7204.100 Electron/37.2.3 Safari/537.36" scale="1" border="0" version="28.0.6">
   <diagram name="ページ1" id="gCPACocn7_q2a2c1z5WJ">
-    <mxGraphModel dx="4274" dy="3042" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="0" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2964" dy="2106" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="0" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -54,7 +54,7 @@
           <mxGeometry x="490" y="246.5" width="160" height="50" as="geometry" />
         </mxCell>
         <mxCell id="qzmDcTwMAvilMWO-RzU5-55" value="PlayerRaycast" style="html=1;whiteSpace=wrap;fontStyle=1;align=center;" parent="1" vertex="1">
-          <mxGeometry x="650" y="412.5" width="160" height="50" as="geometry" />
+          <mxGeometry x="740" y="372" width="160" height="50" as="geometry" />
         </mxCell>
         <mxCell id="qzmDcTwMAvilMWO-RzU5-60" value="" style="endArrow=open;endFill=1;endSize=12;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="qzmDcTwMAvilMWO-RzU5-42" target="qzmDcTwMAvilMWO-RzU5-55" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
@@ -815,6 +815,42 @@
               <mxPoint x="-130" y="1010" />
               <mxPoint y="1010" />
               <mxPoint y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="score_manager_box_1" value="ScoreManager" style="html=1;whiteSpace=wrap;fontStyle=1;align=center;" parent="1" vertex="1">
+          <mxGeometry x="560" y="-90" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="score_mode_box_1" value="ScoreMode" style="html=1;whiteSpace=wrap;fontStyle=1;align=center;" parent="1" vertex="1">
+          <mxGeometry x="560" y="372.5" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="score_view_box_1" value="ScoreView" style="html=1;whiteSpace=wrap;fontStyle=1;align=center;" parent="1" vertex="1">
+          <mxGeometry x="740" y="446" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_scoremode_imode" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;" parent="1" source="score_mode_box_1" target="mOy2V4ltHJ86sl2p2OEm-31" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_scoremode_scoreview" value="" style="endArrow=open;endFill=1;endSize=12;html=1;rounded=0;" parent="1" source="score_mode_box_1" target="score_view_box_1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_scoreview_scoremanager" value="" style="endArrow=open;endFill=1;endSize=12;html=1;rounded=0;" parent="1" source="score_view_box_1" target="score_manager_box_1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1130" y="410" />
+              <mxPoint x="1130" y="240" />
+              <mxPoint x="860" y="240" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_scoremode_cameractrl" value="" style="endArrow=open;endFill=1;endSize=12;html=1;rounded=0;" parent="1" source="score_mode_box_1" target="qzmDcTwMAvilMWO-RzU5-1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_scoremanager_gamemanager" value="" style="endArrow=open;endFill=1;endSize=12;html=1;rounded=0;dashed=1;" parent="1" source="score_manager_box_1" target="aObyYmtIhbUZS9xpUzDy-57" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-280" y="-40" />
+              <mxPoint x="-390" y="50" />
+              <mxPoint x="-620" y="50" />
             </Array>
           </mxGeometry>
         </mxCell>
