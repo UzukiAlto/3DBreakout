@@ -2531,7 +2531,7 @@ GameObject:
   - component: {fileID: 471059512}
   - component: {fileID: 471059513}
   m_Layer: 8
-  m_Name: CREDIT
+  m_Name: SCORE
   m_TagString: SelectText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3814,6 +3814,51 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: c0431c0fb53693a429a90a4cf552e01d, type: 3}
   - type: 4
     clip: {fileID: 8300000, guid: bb0c1d6e5b2d76c44a592b673782a527, type: 3}
+--- !u!1 &827461091
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 827461092}
+  - component: {fileID: 827461093}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &827461092
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827461091}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1262013571}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &827461093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827461091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89916842194ce47449cc5ccb60f0a650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 911674053}
 --- !u!1 &835197029
 GameObject:
   m_ObjectHideFlags: 0
@@ -5714,6 +5759,7 @@ Transform:
   - {fileID: 1102372949}
   - {fileID: 1866758593}
   - {fileID: 815956861}
+  - {fileID: 827461092}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1266616260 stripped
@@ -6848,7 +6894,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: CREDIT
+  m_text: SCORE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 57f3a498d2e3d2540ad4dcc188215032, type: 2}
   m_sharedMaterial: {fileID: 7109288938825844727, guid: 57f3a498d2e3d2540ad4dcc188215032, type: 2}
