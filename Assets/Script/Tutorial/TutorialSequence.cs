@@ -63,10 +63,10 @@ namespace Tutorial
 
         private void OnEnable()
         {
-            // 毎回リセットが有効な場合は、前回のセッション完了状態もクリアして再実行を可能にする
-            if (resetOnEnable && isGameScreenTutorial)
+            // モード選択画面に戻った際は、次のプレイヤーのためにゲーム用チュートリアルの完了状態をリセット
+            if (!isGameScreenTutorial)
             {
-                hasCompletedGameTutorial = false;
+                ResetGameTutorialSession();
             }
 
             // ゲーム画面の場合、ゲーム開始前（Start待機中）は操作不能なためゲーム開始イベントを待機
@@ -113,14 +113,8 @@ namespace Tutorial
 
         private void HandleGameStarted()
         {
-            // 毎回リセットが有効な場合は前回の完了フラグをクリア
-            if (resetOnEnable && isGameScreenTutorial)
-            {
-                hasCompletedGameTutorial = false;
-            }
-
-            // 展示会で同じプレイヤーがリトライ中であればスキップ（毎回リセットが無効な場合のみ）
-            if (!resetOnEnable && isGameScreenTutorial && hasCompletedGameTutorial)
+            // 展示会で同じプレイヤーがプレイ中・リトライ中であればスキップ
+            if (isGameScreenTutorial && hasCompletedGameTutorial)
             {
                 if (tutorialUI != null)
                 {
@@ -134,7 +128,12 @@ namespace Tutorial
 
         private void HandleGameInterrupted()
         {
-            // 失敗時やゲームオーバー時はチュートリアル案内を安全に中断
+            // 失敗時やゲームオーバー時はチュートリアル案内を安全に中断し、再開時の重複案内を防ぐため完了扱いにする
+            if (isGameScreenTutorial)
+            {
+                hasCompletedGameTutorial = true;
+            }
+
             StopSequence();
         }
 

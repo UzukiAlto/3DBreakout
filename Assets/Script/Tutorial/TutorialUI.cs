@@ -38,13 +38,14 @@ namespace Tutorial
 
         /// <summary>
         /// 操作アニメーションを切り替えて表示する
-        /// 前のアニメーションがある場合は、達成演出を再生してから切り替える
+        /// 前のアニメーションを確実に停止・非表示にしてから新しいアニメーションを開始する
         /// </summary>
         public void ShowVisual(TutorialVisualBase nextVisual)
         {
             if (nextVisual == null)
             {
-                Debug.LogWarning("表示する TutorialVisual が未設定です。");
+                Debug.LogWarning("[TutorialUI] 表示する TutorialVisual が未設定です。");
+                return;
             }
 
             gameObject.SetActive(true);
@@ -53,17 +54,14 @@ namespace Tutorial
             TutorialVisualBase previousVisual = currentVisual;
             currentVisual = nextVisual;
 
-            if (previousVisual == null)
+            // 前の操作アニメーションが残っている場合、Tween完了待ちで次が詰まるのを防ぐため確実に片付ける
+            if (previousVisual != null && previousVisual != nextVisual)
             {
-                ActivateVisual(nextVisual);
-                return;
+                previousVisual.Stop();
+                previousVisual.gameObject.SetActive(false);
             }
 
-            // 達成演出が終わってから次を出すことで、2つの画像が重なって見えるのを防ぐ
-            PlayCompleteEffect(previousVisual, () =>
-            {
-                ActivateVisual(nextVisual);
-            });
+            ActivateVisual(nextVisual);
         }
 
         /// <summary>
@@ -79,8 +77,8 @@ namespace Tutorial
         }
 
         /// <summary>
-        /// 現在表示中の操作アニメーションの達成演出を再生し、UIを非表示にします
-        /// 次のステップが即時表示されない場合（遅延表示ステップ）に使用します
+        /// 現在表示中の操作アニメーションを停止し、UIを非表示にする
+        /// 次のステップが即時表示されない場合（遅延表示ステップ）に使用
         /// </summary>
         public void DismissCurrentVisual()
         {
@@ -93,24 +91,26 @@ namespace Tutorial
             TutorialVisualBase visualToDismiss = currentVisual;
             currentVisual = null;
 
-            PlayCompleteEffect(visualToDismiss, FadeOutAndDeactivate);
+            visualToDismiss.Stop();
+            visualToDismiss.gameObject.SetActive(false);
+            FadeOutAndDeactivate();
         }
 
         /// <summary>
-        /// 最後のアニメーションの達成演出を再生した後、UI全体をフェードアウトして非表示にする
+        /// 操作アニメーションを停止し、UI全体をフェードアウトして非表示にする
         /// </summary>
         public void HideUI()
         {
             TutorialVisualBase lastVisual = currentVisual;
             currentVisual = null;
 
-            if (lastVisual == null)
+            if (lastVisual != null)
             {
-                FadeOutAndDeactivate();
-                return;
+                lastVisual.Stop();
+                lastVisual.gameObject.SetActive(false);
             }
 
-            PlayCompleteEffect(lastVisual, FadeOutAndDeactivate);
+            FadeOutAndDeactivate();
         }
 
         /// <summary>
@@ -119,7 +119,6 @@ namespace Tutorial
         public void ForceHideImmediate()
         {
             currentFadeTween?.Kill();
-            // 演出途中で中断された場合も、演出対象の部品を確実に非表示にするため完了扱いで停止
             transitionTween?.Kill(true);
 
             if (currentVisual != null)
@@ -144,26 +143,9 @@ namespace Tutorial
                 return;
             }
 
+            Debug.Log($"[TutorialUI] ActivateVisual: {visual.gameObject.name}");
             visual.gameObject.SetActive(true);
             visual.Play();
-        }
-
-        private void PlayCompleteEffect(TutorialVisualBase visual, Action onComplete)
-        {
-            // 前の切り替え演出が残っている場合は即座に完了させ、部品の表示状態の食い違いを防ぐ
-            transitionTween?.Kill(true);
-
-            visual.Stop();
-
-            transitionTween = visual.transform
-                .DOPunchScale(Vector3.one * completePunchStrength, completeEffectDuration, 6, 0.5f)
-                .SetUpdate(true)
-                .SetLink(gameObject)
-                .OnComplete(() =>
-                {
-                    visual.gameObject.SetActive(false);
-                    onComplete?.Invoke();
-                });
         }
 
         private void FadeOutAndDeactivate()

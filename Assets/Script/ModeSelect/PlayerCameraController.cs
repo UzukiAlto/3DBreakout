@@ -10,7 +10,6 @@ namespace ModeSelect
     {
         // インターフェースの参照元オブジェクト
         [SerializeField] private GameObject playerCameraInputObject;
-        [SerializeField] private Transform configCameraTransform;
         // プレイヤーのカメラ入力を受け取るためのインターフェース
         private IPlayerCameraInput playerCameraInput;
         private Vector3 previousCameraPosition;
@@ -43,9 +42,15 @@ namespace ModeSelect
                 playerCameraInput.OnCameraMoveEnd -= OnCameraMoveEnd;
             }
         }
-        public void MoveToConfigPosition()
+        public void MoveToTargetPosition(Transform targetPoint)
         {
-            // 設定画面への遷移開始時にドラッグ中だった場合でも、UI操作ができるようにカーソルを復帰させるため
+            // 移動対象のポイントが設定されていない場合はカメラ移動を行わないため
+            if (targetPoint == null)
+            {
+                return;
+            }
+
+            // 画面遷移開始時にドラッグ中だった場合でも、UI操作ができるようにカーソルを復帰させるため
             UnlockCursor();
 
             previousCameraPosition = this.transform.position;
@@ -53,7 +58,7 @@ namespace ModeSelect
             CameraMovementUtility.MoveAroundPivot(
                 movingCamera: this.transform,
                 pivot: rotateCenterObj.transform,
-                targetPoint: configCameraTransform,
+                targetPoint: targetPoint,
                 duration: 1f
             );
         }
