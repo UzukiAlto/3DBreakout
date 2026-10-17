@@ -72,10 +72,10 @@ namespace Tutorial
         public void NotifyStepComplete()
         {
             // 正しいアクションを行えたことをプレイヤーに直感的にフィードバックするため
-            if (playSoundOnStepComplete)
-            {
-                AudioManager.PlaySE(AudioManager.SEType.Select);
-            }
+            // if (playSoundOnStepComplete)
+            // {
+            //     AudioManager.PlaySE(AudioManager.SEType.Select);
+            // }
         }
 
         /// <summary>
