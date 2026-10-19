@@ -1,86 +1,105 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using MainSystem;
 using DG.Tweening;
 
 namespace Game
 {
     /// <summary>
-    /// プレイヤーのカメラを制御するクラス
+    /// ゲーム画面におけるプレイヤーのカメラ制御クラス
+    /// ポーズUI判定とゲーム進行時のカメラ位置復帰を管理
     /// </summary>
     public class PlayerCameraController : PlayerRotationControllerBase
     {
-        // インターフェースの参照元オブジェクト
-        [SerializeField] private GameObject playerCameraInputObject;
         [SerializeField] private GameManager gameManager;
         private Vector3 defaultCameraPosition;
         private Quaternion defaultCameraRotation;
         private float changeSecond = 0.4f;
-        // プレイヤーのカメラ入力を受け取るためのインターフェース
-        private IPlayerCameraInput playerCameraInput;
-        private bool isCameraMoving = false;
-        private void Awake()
+
+        protected override void Awake()
         {
-            playerCameraInput = playerCameraInputObject.GetComponent<IPlayerCameraInput>();
+            base.Awake();
             defaultCameraPosition = playerCameraObj.transform.position;
             defaultCameraRotation = playerCameraObj.transform.rotation;
         }
-        protected override void OnEnable() 
+
+        protected override void OnEnable()
         {
             base.OnEnable();
-            // イベントの購読
-            // playerCameraInput.OnCameraMoveStart += OnCameraMoveStart;
-            playerCameraInput.OnCameraMovingDelta += OnCameraMovingDelta;
-            playerCameraInput.OnCameraMoveEnd += OnCameraMoveEnd;
             gameManager.OnGameReady += MoveCameraToDefaultPosition;
             gameManager.OnGameFailed += MoveCameraToDefaultPosition;
-
-            isCameraMoving = false;
         }
 
-        protected override void OnDisable() 
+        protected override void OnDisable()
         {
             base.OnDisable();
-            if (playerCameraInput != null)
-            {
-                // イベントの購読解除
-                // playerCameraInput.OnCameraMoveStart -= OnCameraMoveStart;
-                playerCameraInput.OnCameraMovingDelta -= OnCameraMovingDelta;
-                playerCameraInput.OnCameraMoveEnd -= OnCameraMoveEnd;
-            }
             if (gameManager != null)
             {
                 gameManager.OnGameReady -= MoveCameraToDefaultPosition;
                 gameManager.OnGameFailed -= MoveCameraToDefaultPosition;
             }
         }
-        private void OnCameraMoveStart()
+
+        protected override void OnCameraMoveStart(Vector2 pointerPos)
         {
-            // マウスカーソルをロックして非表示にする
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
-        private void OnCameraMovingDelta(Vector2 delta)
-        {
-            // クリックを可能にするため、カメラが動き出してからマウスカーソルをロックする
-            if (!isCameraMoving)
+            // ポーズボタン等の操作UIをクリックした際は、カーソルをロックせずUIクリックを成立させるため
+            if (IsPointerOverPauseUI())
             {
-                OnCameraMoveStart();
-                isCameraMoving = true;
+                return;
             }
-            // PlayerRotationControllerBaseのRotateメソッドを呼び出してカメラを回転させる
-            Rotate(delta);
-        }
-        private void OnCameraMoveEnd(Vector2 pointerPos)
-        {
-            isCameraMoving = false;
-            // マウスカーソルをロック解除して表示する
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+
+            base.OnCameraMoveStart(pointerPos);
         }
 
-        // ゲーム失敗時にカメラをデフォルト位置に戻す
+        private bool IsPointerOverPauseUI()
+        {
+            if (EventSystem.current == null)
+            {
+                return false;
+            }
+
+            Vector2 screenPos = Vector2.zero;
+            if (Mouse.current != null)
+            {
+                screenPos = Mouse.current.position.ReadValue();
+            }
+            else
+            {
+                screenPos = (Vector2)Input.mousePosition;
+            }
+
+            PointerEventData pointerData = new PointerEventData(EventSystem.current)
+            {
+                position = screenPos
+            };
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerData, results);
+
+            foreach (RaycastResult result in results)
+            {
+                if (result.gameObject == null)
+                {
+                    continue;
+                }
+
+                // ポーズボタンのコンポーネント（MenuCubeやEventTrigger、Button等）を持つUIを検知
+                if (result.gameObject.GetComponentInParent<MenuCube>() != null ||
+                    result.gameObject.GetComponentInParent<EventTrigger>() != null ||
+                    result.gameObject.GetComponentInParent<Button>() != null)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        // ゲーム失敗時や準備完了時にカメラを初期位置へ補間復帰
         private void MoveCameraToDefaultPosition()
         {
             Vector3 endPos = defaultCameraPosition - rotateCenterObj.transform.position;
@@ -102,6 +121,5 @@ namespace Game
             )
             .SetEase(Ease.OutCubic);
         }
-        
     }
 }

@@ -4,44 +4,14 @@ using MainSystem;
 namespace ModeSelect
 {
     /// <summary>
-    /// プレイヤーのカメラを回転させるクラス
+    /// モードセレクト画面におけるプレイヤーのカメラ制御クラス
+    /// モード選択に応じたカメラのピボット移動を管理
     /// </summary>
     public class PlayerCameraController : PlayerRotationControllerBase
     {
-        // インターフェースの参照元オブジェクト
-        [SerializeField] private GameObject playerCameraInputObject;
-        // プレイヤーのカメラ入力を受け取るためのインターフェース
-        private IPlayerCameraInput playerCameraInput;
         private Vector3 previousCameraPosition;
         private Quaternion previousCameraRotation;
-        private void Awake()
-        {
-            playerCameraInput = playerCameraInputObject.GetComponent<IPlayerCameraInput>();
-        }
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-            // イベントの購読
-            playerCameraInput.OnCameraMoveStart += OnCameraMoveStart;
-            playerCameraInput.OnCameraMovingDelta += OnCameraMovingDelta;
-            playerCameraInput.OnCameraMoveEnd += OnCameraMoveEnd;
-        }
 
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-
-            // 画面切り替え等で無効化された際にカーソルがロックされたまま残るのを防ぐため
-            UnlockCursor();
-
-            if (playerCameraInput != null)
-            {
-                // イベントの購読解除
-                playerCameraInput.OnCameraMoveStart -= OnCameraMoveStart;
-                playerCameraInput.OnCameraMovingDelta -= OnCameraMovingDelta;
-                playerCameraInput.OnCameraMoveEnd -= OnCameraMoveEnd;
-            }
-        }
         public void MoveToTargetPosition(Transform targetPoint)
         {
             // 移動対象のポイントが設定されていない場合はカメラ移動を行わないため
@@ -62,6 +32,7 @@ namespace ModeSelect
                 duration: 1f
             );
         }
+
         public void MoveToPreviousPosition()
         {
             CameraMovementUtility.MoveAroundPivot(
@@ -72,35 +43,5 @@ namespace ModeSelect
                 duration: 1f
             );
         }
-        private void OnCameraMoveStart(Vector2 pointerPos)
-        {
-            // 操作可能でない画面ではドラッグによるカメラ回転を開始させないため
-            if (!base.currentScreen.canOperate)
-            {
-                return;
-            }
-
-            // ドラッグ中のマウス移動量を安定して取得するためカーソルをロック
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
-        private void OnCameraMovingDelta(Vector2 delta)
-        {
-            // PlayerRotationControllerBaseのRotateメソッドを呼び出してカメラを回転させる
-            Rotate(delta);
-        }
-        private void OnCameraMoveEnd(Vector2 pointerPos)
-        {
-            // 操作可能状態にかかわらず、クリック終了時は確実にカーソルを操作可能状態へ復帰させるため
-            UnlockCursor();
-        }
-
-        private void UnlockCursor()
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-
-
     }
 }
